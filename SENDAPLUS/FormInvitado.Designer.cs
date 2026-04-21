@@ -71,7 +71,7 @@
             this.cmbMes.FormattingEnabled = true;
             this.cmbMes.IntegralHeight = false;
             this.cmbMes.ItemHeight = 43;
-            this.cmbMes.Location = new System.Drawing.Point(1165, 192);
+            this.cmbMes.Location = new System.Drawing.Point(782, 134);
             this.cmbMes.MaxDropDownItems = 4;
             this.cmbMes.MouseState = MaterialSkin.MouseState.OUT;
             this.cmbMes.Name = "cmbMes";
@@ -100,12 +100,12 @@
             this.HoraFin,
             this.Lugar,
             this.Estado});
-            this.dataGridView1.Location = new System.Drawing.Point(11, 261);
+            this.dataGridView1.Location = new System.Drawing.Point(16, 189);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.RowTemplate.Height = 28;
-            this.dataGridView1.Size = new System.Drawing.Size(1364, 415);
+            this.dataGridView1.Size = new System.Drawing.Size(892, 252);
             this.dataGridView1.TabIndex = 4;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -184,7 +184,7 @@
             this.btnfiltrar.Depth = 0;
             this.btnfiltrar.HighEmphasis = true;
             this.btnfiltrar.Icon = null;
-            this.btnfiltrar.Location = new System.Drawing.Point(984, 205);
+            this.btnfiltrar.Location = new System.Drawing.Point(626, 134);
             this.btnfiltrar.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnfiltrar.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnfiltrar.Name = "btnfiltrar";
@@ -204,7 +204,7 @@
             this.btnConsultar.Depth = 0;
             this.btnConsultar.HighEmphasis = true;
             this.btnConsultar.Icon = null;
-            this.btnConsultar.Location = new System.Drawing.Point(11, 205);
+            this.btnConsultar.Location = new System.Drawing.Point(11, 134);
             this.btnConsultar.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnConsultar.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnConsultar.Name = "btnConsultar";
@@ -224,7 +224,7 @@
             this.btnDetalles.Depth = 0;
             this.btnDetalles.HighEmphasis = true;
             this.btnDetalles.Icon = null;
-            this.btnDetalles.Location = new System.Drawing.Point(626, 699);
+            this.btnDetalles.Location = new System.Drawing.Point(696, 480);
             this.btnDetalles.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnDetalles.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnDetalles.Name = "btnDetalles";
@@ -241,7 +241,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 26F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1386, 788);
+            this.ClientSize = new System.Drawing.Size(971, 537);
             this.Controls.Add(this.btnDetalles);
             this.Controls.Add(this.btnConsultar);
             this.Controls.Add(this.btnfiltrar);

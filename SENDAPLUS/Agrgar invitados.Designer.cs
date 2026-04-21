@@ -45,7 +45,7 @@
             this.btnGuardar.Depth = 0;
             this.btnGuardar.HighEmphasis = true;
             this.btnGuardar.Icon = null;
-            this.btnGuardar.Location = new System.Drawing.Point(496, 419);
+            this.btnGuardar.Location = new System.Drawing.Point(457, 345);
             this.btnGuardar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnGuardar.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnGuardar.Name = "btnGuardar";
@@ -65,7 +65,7 @@
             this.btnQuitarInvitacion.Depth = 0;
             this.btnQuitarInvitacion.HighEmphasis = true;
             this.btnQuitarInvitacion.Icon = null;
-            this.btnQuitarInvitacion.Location = new System.Drawing.Point(55, 419);
+            this.btnQuitarInvitacion.Location = new System.Drawing.Point(26, 345);
             this.btnQuitarInvitacion.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnQuitarInvitacion.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnQuitarInvitacion.Name = "btnQuitarInvitacion";
@@ -85,7 +85,7 @@
             this.btnVolver.Depth = 0;
             this.btnVolver.HighEmphasis = true;
             this.btnVolver.Icon = null;
-            this.btnVolver.Location = new System.Drawing.Point(829, 419);
+            this.btnVolver.Location = new System.Drawing.Point(847, 345);
             this.btnVolver.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnVolver.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnVolver.Name = "btnVolver";
@@ -101,18 +101,18 @@
             // dgvAprendices
             // 
             this.dgvAprendices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvAprendices.Location = new System.Drawing.Point(26, 77);
+            this.dgvAprendices.Location = new System.Drawing.Point(26, 67);
             this.dgvAprendices.Name = "dgvAprendices";
-            this.dgvAprendices.Size = new System.Drawing.Size(460, 304);
+            this.dgvAprendices.Size = new System.Drawing.Size(391, 247);
             this.dgvAprendices.TabIndex = 24;
             this.dgvAprendices.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAprendices_CellClick);
             // 
             // dgvEventos
             // 
             this.dgvEventos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvEventos.Location = new System.Drawing.Point(580, 77);
+            this.dgvEventos.Location = new System.Drawing.Point(457, 67);
             this.dgvEventos.Name = "dgvEventos";
-            this.dgvEventos.Size = new System.Drawing.Size(466, 304);
+            this.dgvEventos.Size = new System.Drawing.Size(466, 247);
             this.dgvEventos.TabIndex = 25;
             this.dgvEventos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEventos_CellClick);
             // 
@@ -123,12 +123,12 @@
             this.Cargarbtn.Depth = 0;
             this.Cargarbtn.HighEmphasis = true;
             this.Cargarbtn.Icon = null;
-            this.Cargarbtn.Location = new System.Drawing.Point(291, 419);
+            this.Cargarbtn.Location = new System.Drawing.Point(280, 345);
             this.Cargarbtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.Cargarbtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.Cargarbtn.Name = "Cargarbtn";
             this.Cargarbtn.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.Cargarbtn.Size = new System.Drawing.Size(158, 36);
+            this.Cargarbtn.Size = new System.Drawing.Size(137, 36);
             this.Cargarbtn.TabIndex = 26;
             this.Cargarbtn.Text = "Cargar tablas";
             this.Cargarbtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
@@ -140,7 +140,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1089, 506);
+            this.ClientSize = new System.Drawing.Size(945, 426);
             this.Controls.Add(this.Cargarbtn);
             this.Controls.Add(this.dgvEventos);
             this.Controls.Add(this.dgvAprendices);

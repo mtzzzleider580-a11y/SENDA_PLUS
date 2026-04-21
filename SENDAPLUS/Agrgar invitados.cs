@@ -84,10 +84,21 @@ namespace SENDAPLUS
 
             try
             {
+                // Buscar datos completos
+                var aprendiz = conexion.Usuarios()
+                    .Find(x => x.Id == idAprendiz)
+                    .FirstOrDefault();
+
+                var evento = conexion.Eventos()
+                    .Find(x => x.Id == idEvento)
+                    .FirstOrDefault();
+
                 var nuevaInv = new Invitacion
                 {
                     IdEvento = idEvento,
-                    IdInvitado = idAprendiz
+                    IdInvitado = idAprendiz,
+                    NombreEvento = evento.NombreEvento,
+                    NombreInvitado = aprendiz.Nombre
                 };
 
                 conexion.Invitacion().InsertOne(nuevaInv);
@@ -104,8 +115,9 @@ namespace SENDAPLUS
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
-            // Este formulario normalmente se abre con ShowDialog(); Close() devuelve el control al llamador.
-            this.Close();
+            Lider vol = new Lider();
+            vol.Show();
+            this.Hide();
         }
 
         private void Agrgar_invitados_Load_1(object sender, EventArgs e)

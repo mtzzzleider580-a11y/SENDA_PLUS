@@ -14,15 +14,19 @@ namespace SENDAPLUS
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
-        // Relación con Evento
         [BsonElement("idEvento")]
         [BsonRepresentation(BsonType.ObjectId)]
         public string IdEvento { get; set; }
 
-        // Relación con Usuario
         [BsonElement("idInvitado")]
         [BsonRepresentation(BsonType.ObjectId)]
         public string IdInvitado { get; set; }
+
+        [BsonElement("NombreEvento")]
+        public string NombreEvento { get; set; }
+
+        [BsonElement("NombreInvitado")]
+        public string NombreInvitado { get; set; }
     }
     
 }

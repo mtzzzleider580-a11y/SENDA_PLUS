@@ -18,7 +18,7 @@ namespace SENDAPLUS
     {
 
         private Usuarios usuarioActual;
-        private ConexionMongo.Conectar conexion;
+        private ConexionMongo.Conectar conexion = new ConexionMongo.Conectar();
 
         public FormInvitado(Usuarios usuario)
         {
@@ -43,13 +43,30 @@ namespace SENDAPLUS
         {
             try
             {
-                dataGridView1.AutoGenerateColumns = true; // <--- AGREGA ESTA LÍNEA
+                dataGridView1.AutoGenerateColumns = true;
 
-                // El resto de tu código de búsqueda...
+                // 1. Buscar invitaciones del usuario logueado
                 var misInvitaciones = conexion.Invitacion()
-                    .Find(x => x.IdInvitado == usuarioActual.Id).ToList();
+                    .Find(x => x.IdInvitado == usuarioActual.Id)
+                    .ToList();
 
-                // ... (el resto que ya tienes funciona bien)
+                // 2. Obtener IDs de eventos
+                var idsEventos = misInvitaciones
+                    .Select(x => x.IdEvento)
+                    .ToList();
+
+                // 3. Buscar eventos relacionados
+                var eventos = conexion.Eventos()
+                    .Find(x => idsEventos.Contains(x.Id))
+                    .ToList();
+
+                // 4. Mostrar en tabla
+                dataGridView1.DataSource = eventos;
+
+                if (eventos.Count == 0)
+                {
+                    MessageBox.Show("No tienes invitaciones.");
+                }
             }
             catch (Exception ex)
             {

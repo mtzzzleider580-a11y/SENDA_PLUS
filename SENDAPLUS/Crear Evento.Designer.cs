@@ -93,7 +93,8 @@ namespace SENDAPLUS
             this.lblNombredelevento.AutoSize = true;
             this.lblNombredelevento.Depth = 0;
             this.lblNombredelevento.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.lblNombredelevento.Location = new System.Drawing.Point(30, 168);
+            this.lblNombredelevento.Location = new System.Drawing.Point(20, 109);
+            this.lblNombredelevento.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNombredelevento.MouseState = MaterialSkin.MouseState.HOVER;
             this.lblNombredelevento.Name = "lblNombredelevento";
             this.lblNombredelevento.Size = new System.Drawing.Size(134, 19);
@@ -105,7 +106,8 @@ namespace SENDAPLUS
             this.lblTipodeevento.AutoSize = true;
             this.lblTipodeevento.Depth = 0;
             this.lblTipodeevento.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.lblTipodeevento.Location = new System.Drawing.Point(30, 291);
+            this.lblTipodeevento.Location = new System.Drawing.Point(20, 189);
+            this.lblTipodeevento.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTipodeevento.MouseState = MaterialSkin.MouseState.HOVER;
             this.lblTipodeevento.Name = "lblTipodeevento";
             this.lblTipodeevento.Size = new System.Drawing.Size(110, 19);
@@ -117,7 +119,8 @@ namespace SENDAPLUS
             this.lblFechayhoradeinicio.AutoSize = true;
             this.lblFechayhoradeinicio.Depth = 0;
             this.lblFechayhoradeinicio.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.lblFechayhoradeinicio.Location = new System.Drawing.Point(34, 385);
+            this.lblFechayhoradeinicio.Location = new System.Drawing.Point(23, 250);
+            this.lblFechayhoradeinicio.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblFechayhoradeinicio.MouseState = MaterialSkin.MouseState.HOVER;
             this.lblFechayhoradeinicio.Name = "lblFechayhoradeinicio";
             this.lblFechayhoradeinicio.Size = new System.Drawing.Size(155, 19);
@@ -129,7 +132,8 @@ namespace SENDAPLUS
             this.lblFechayhorafin.AutoSize = true;
             this.lblFechayhorafin.Depth = 0;
             this.lblFechayhorafin.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.lblFechayhorafin.Location = new System.Drawing.Point(38, 435);
+            this.lblFechayhorafin.Location = new System.Drawing.Point(25, 283);
+            this.lblFechayhorafin.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblFechayhorafin.MouseState = MaterialSkin.MouseState.HOVER;
             this.lblFechayhorafin.Name = "lblFechayhorafin";
             this.lblFechayhorafin.Size = new System.Drawing.Size(115, 19);
@@ -143,12 +147,13 @@ namespace SENDAPLUS
             this.txtnombrevento.Depth = 0;
             this.txtnombrevento.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.txtnombrevento.LeadingIcon = null;
-            this.txtnombrevento.Location = new System.Drawing.Point(261, 120);
+            this.txtnombrevento.Location = new System.Drawing.Point(174, 78);
+            this.txtnombrevento.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtnombrevento.MaxLength = 50;
             this.txtnombrevento.MouseState = MaterialSkin.MouseState.OUT;
             this.txtnombrevento.Multiline = false;
             this.txtnombrevento.Name = "txtnombrevento";
-            this.txtnombrevento.Size = new System.Drawing.Size(268, 50);
+            this.txtnombrevento.Size = new System.Drawing.Size(179, 50);
             this.txtnombrevento.TabIndex = 4;
             this.txtnombrevento.Text = "";
             this.txtnombrevento.TrailingIcon = null;
@@ -172,11 +177,12 @@ namespace SENDAPLUS
             "Academico",
             "Cultural",
             "Deportivo"});
-            this.combotipoe.Location = new System.Drawing.Point(261, 245);
+            this.combotipoe.Location = new System.Drawing.Point(174, 159);
+            this.combotipoe.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.combotipoe.MaxDropDownItems = 4;
             this.combotipoe.MouseState = MaterialSkin.MouseState.OUT;
             this.combotipoe.Name = "combotipoe";
-            this.combotipoe.Size = new System.Drawing.Size(266, 49);
+            this.combotipoe.Size = new System.Drawing.Size(179, 49);
             this.combotipoe.StartIndex = 0;
             this.combotipoe.TabIndex = 5;
             this.combotipoe.SelectedIndexChanged += new System.EventHandler(this.materialComboBox1_SelectedIndexChanged_1);
@@ -185,18 +191,20 @@ namespace SENDAPLUS
             // 
             this.datefechaini.CustomFormat = "dd/MM/yyyy HH:mm";
             this.datefechaini.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.datefechaini.Location = new System.Drawing.Point(288, 385);
+            this.datefechaini.Location = new System.Drawing.Point(192, 250);
+            this.datefechaini.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.datefechaini.Name = "datefechaini";
-            this.datefechaini.Size = new System.Drawing.Size(210, 26);
+            this.datefechaini.Size = new System.Drawing.Size(141, 20);
             this.datefechaini.TabIndex = 6;
             // 
             // datefechafin
             // 
             this.datefechafin.CustomFormat = "dd/MM/yyyy HH:mm";
             this.datefechafin.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.datefechafin.Location = new System.Drawing.Point(288, 435);
+            this.datefechafin.Location = new System.Drawing.Point(192, 283);
+            this.datefechafin.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.datefechafin.Name = "datefechafin";
-            this.datefechafin.Size = new System.Drawing.Size(210, 26);
+            this.datefechafin.Size = new System.Drawing.Size(141, 20);
             this.datefechafin.TabIndex = 7;
             // 
             // btnVolver
@@ -206,8 +214,8 @@ namespace SENDAPLUS
             this.btnVolver.Depth = 0;
             this.btnVolver.HighEmphasis = true;
             this.btnVolver.Icon = null;
-            this.btnVolver.Location = new System.Drawing.Point(1494, 722);
-            this.btnVolver.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnVolver.Location = new System.Drawing.Point(996, 469);
+            this.btnVolver.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnVolver.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.NoAccentTextColor = System.Drawing.Color.Empty;
@@ -224,7 +232,8 @@ namespace SENDAPLUS
             this.lblEstado.AutoSize = true;
             this.lblEstado.Depth = 0;
             this.lblEstado.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.lblEstado.Location = new System.Drawing.Point(30, 631);
+            this.lblEstado.Location = new System.Drawing.Point(20, 410);
+            this.lblEstado.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblEstado.MouseState = MaterialSkin.MouseState.HOVER;
             this.lblEstado.Name = "lblEstado";
             this.lblEstado.Size = new System.Drawing.Size(50, 19);
@@ -248,11 +257,12 @@ namespace SENDAPLUS
             this.comboestado.Items.AddRange(new object[] {
             "Activo",
             "Desactivado"});
-            this.comboestado.Location = new System.Drawing.Point(288, 602);
+            this.comboestado.Location = new System.Drawing.Point(192, 391);
+            this.comboestado.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.comboestado.MaxDropDownItems = 4;
             this.comboestado.MouseState = MaterialSkin.MouseState.OUT;
             this.comboestado.Name = "comboestado";
-            this.comboestado.Size = new System.Drawing.Size(210, 49);
+            this.comboestado.Size = new System.Drawing.Size(141, 49);
             this.comboestado.StartIndex = 0;
             this.comboestado.TabIndex = 19;
             // 
@@ -263,8 +273,8 @@ namespace SENDAPLUS
             this.btnGuardarevento.Depth = 0;
             this.btnGuardarevento.HighEmphasis = true;
             this.btnGuardarevento.Icon = null;
-            this.btnGuardarevento.Location = new System.Drawing.Point(154, 712);
-            this.btnGuardarevento.Margin = new System.Windows.Forms.Padding(6, 9, 6, 9);
+            this.btnGuardarevento.Location = new System.Drawing.Point(103, 463);
+            this.btnGuardarevento.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnGuardarevento.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnGuardarevento.Name = "btnGuardarevento";
             this.btnGuardarevento.NoAccentTextColor = System.Drawing.Color.Empty;
@@ -281,7 +291,8 @@ namespace SENDAPLUS
             this.materialLabel1.AutoSize = true;
             this.materialLabel1.Depth = 0;
             this.materialLabel1.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel1.Location = new System.Drawing.Point(776, 146);
+            this.materialLabel1.Location = new System.Drawing.Point(517, 95);
+            this.materialLabel1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel1.Name = "materialLabel1";
             this.materialLabel1.Size = new System.Drawing.Size(207, 19);
@@ -295,12 +306,13 @@ namespace SENDAPLUS
             this.txtconsultarevento.Depth = 0;
             this.txtconsultarevento.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.txtconsultarevento.LeadingIcon = null;
-            this.txtconsultarevento.Location = new System.Drawing.Point(1128, 108);
+            this.txtconsultarevento.Location = new System.Drawing.Point(752, 70);
+            this.txtconsultarevento.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtconsultarevento.MaxLength = 50;
             this.txtconsultarevento.MouseState = MaterialSkin.MouseState.OUT;
             this.txtconsultarevento.Multiline = false;
             this.txtconsultarevento.Name = "txtconsultarevento";
-            this.txtconsultarevento.Size = new System.Drawing.Size(236, 50);
+            this.txtconsultarevento.Size = new System.Drawing.Size(157, 50);
             this.txtconsultarevento.TabIndex = 22;
             this.txtconsultarevento.Text = "";
             this.txtconsultarevento.TrailingIcon = null;
@@ -328,11 +340,12 @@ namespace SENDAPLUS
             this.Lugar,
             this.Estado});
             this.dataEVENTOSv.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.dataEVENTOSv.Location = new System.Drawing.Point(578, 191);
+            this.dataEVENTOSv.Location = new System.Drawing.Point(385, 124);
+            this.dataEVENTOSv.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dataEVENTOSv.Name = "dataEVENTOSv";
             this.dataEVENTOSv.RowHeadersWidth = 62;
             this.dataEVENTOSv.RowTemplate.Height = 28;
-            this.dataEVENTOSv.Size = new System.Drawing.Size(1030, 440);
+            this.dataEVENTOSv.Size = new System.Drawing.Size(687, 286);
             this.dataEVENTOSv.TabIndex = 21;
             this.dataEVENTOSv.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataEVENTOSv_CellClick);
             this.dataEVENTOSv.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
@@ -386,8 +399,8 @@ namespace SENDAPLUS
             this.btActualizarEvento.Depth = 0;
             this.btActualizarEvento.HighEmphasis = true;
             this.btActualizarEvento.Icon = null;
-            this.btActualizarEvento.Location = new System.Drawing.Point(578, 722);
-            this.btActualizarEvento.Margin = new System.Windows.Forms.Padding(6, 9, 6, 9);
+            this.btActualizarEvento.Location = new System.Drawing.Point(385, 469);
+            this.btActualizarEvento.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btActualizarEvento.MouseState = MaterialSkin.MouseState.HOVER;
             this.btActualizarEvento.Name = "btActualizarEvento";
             this.btActualizarEvento.NoAccentTextColor = System.Drawing.Color.Empty;
@@ -404,7 +417,8 @@ namespace SENDAPLUS
             this.lblLugar.AutoSize = true;
             this.lblLugar.Depth = 0;
             this.lblLugar.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.lblLugar.Location = new System.Drawing.Point(30, 515);
+            this.lblLugar.Location = new System.Drawing.Point(20, 335);
+            this.lblLugar.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblLugar.MouseState = MaterialSkin.MouseState.HOVER;
             this.lblLugar.Name = "lblLugar";
             this.lblLugar.Size = new System.Drawing.Size(42, 19);
@@ -418,12 +432,13 @@ namespace SENDAPLUS
             this.txtLugar.Depth = 0;
             this.txtLugar.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.txtLugar.LeadingIcon = null;
-            this.txtLugar.Location = new System.Drawing.Point(288, 489);
+            this.txtLugar.Location = new System.Drawing.Point(192, 318);
+            this.txtLugar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtLugar.MaxLength = 50;
             this.txtLugar.MouseState = MaterialSkin.MouseState.OUT;
             this.txtLugar.Multiline = false;
             this.txtLugar.Name = "txtLugar";
-            this.txtLugar.Size = new System.Drawing.Size(210, 50);
+            this.txtLugar.Size = new System.Drawing.Size(140, 50);
             this.txtLugar.TabIndex = 26;
             this.txtLugar.Text = "";
             this.txtLugar.TrailingIcon = null;
@@ -436,8 +451,8 @@ namespace SENDAPLUS
             this.txtcargarevento.Depth = 0;
             this.txtcargarevento.HighEmphasis = true;
             this.txtcargarevento.Icon = null;
-            this.txtcargarevento.Location = new System.Drawing.Point(873, 722);
-            this.txtcargarevento.Margin = new System.Windows.Forms.Padding(6, 9, 6, 9);
+            this.txtcargarevento.Location = new System.Drawing.Point(582, 469);
+            this.txtcargarevento.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.txtcargarevento.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtcargarevento.Name = "txtcargarevento";
             this.txtcargarevento.NoAccentTextColor = System.Drawing.Color.Empty;
@@ -451,10 +466,10 @@ namespace SENDAPLUS
             // 
             // Crear_Evento
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(1641, 815);
+            this.ClientSize = new System.Drawing.Size(1010, 512);
             this.Controls.Add(this.txtcargarevento);
             this.Controls.Add(this.txtLugar);
             this.Controls.Add(this.lblLugar);
@@ -474,8 +489,9 @@ namespace SENDAPLUS
             this.Controls.Add(this.lblFechayhoradeinicio);
             this.Controls.Add(this.lblTipodeevento);
             this.Controls.Add(this.lblNombredelevento);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Crear_Evento";
-            this.Padding = new System.Windows.Forms.Padding(3, 65, 3, 3);
+            this.Padding = new System.Windows.Forms.Padding(2, 42, 2, 2);
             this.Text = "CREAR EVENTO";
             this.Load += new System.EventHandler(this.Crear_Evento_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataEVENTOSv)).EndInit();
