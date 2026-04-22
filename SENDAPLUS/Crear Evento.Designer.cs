@@ -148,7 +148,7 @@ namespace SENDAPLUS
             this.txtnombrevento.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.txtnombrevento.LeadingIcon = null;
             this.txtnombrevento.Location = new System.Drawing.Point(174, 78);
-            this.txtnombrevento.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtnombrevento.Margin = new System.Windows.Forms.Padding(2);
             this.txtnombrevento.MaxLength = 50;
             this.txtnombrevento.MouseState = MaterialSkin.MouseState.OUT;
             this.txtnombrevento.Multiline = false;
@@ -178,7 +178,7 @@ namespace SENDAPLUS
             "Cultural",
             "Deportivo"});
             this.combotipoe.Location = new System.Drawing.Point(174, 159);
-            this.combotipoe.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.combotipoe.Margin = new System.Windows.Forms.Padding(2);
             this.combotipoe.MaxDropDownItems = 4;
             this.combotipoe.MouseState = MaterialSkin.MouseState.OUT;
             this.combotipoe.Name = "combotipoe";
@@ -192,7 +192,7 @@ namespace SENDAPLUS
             this.datefechaini.CustomFormat = "dd/MM/yyyy HH:mm";
             this.datefechaini.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.datefechaini.Location = new System.Drawing.Point(192, 250);
-            this.datefechaini.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.datefechaini.Margin = new System.Windows.Forms.Padding(2);
             this.datefechaini.Name = "datefechaini";
             this.datefechaini.Size = new System.Drawing.Size(141, 20);
             this.datefechaini.TabIndex = 6;
@@ -202,7 +202,7 @@ namespace SENDAPLUS
             this.datefechafin.CustomFormat = "dd/MM/yyyy HH:mm";
             this.datefechafin.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.datefechafin.Location = new System.Drawing.Point(192, 283);
-            this.datefechafin.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.datefechafin.Margin = new System.Windows.Forms.Padding(2);
             this.datefechafin.Name = "datefechafin";
             this.datefechafin.Size = new System.Drawing.Size(141, 20);
             this.datefechafin.TabIndex = 7;
@@ -214,7 +214,7 @@ namespace SENDAPLUS
             this.btnVolver.Depth = 0;
             this.btnVolver.HighEmphasis = true;
             this.btnVolver.Icon = null;
-            this.btnVolver.Location = new System.Drawing.Point(996, 469);
+            this.btnVolver.Location = new System.Drawing.Point(929, 463);
             this.btnVolver.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnVolver.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnVolver.Name = "btnVolver";
@@ -258,7 +258,7 @@ namespace SENDAPLUS
             "Activo",
             "Desactivado"});
             this.comboestado.Location = new System.Drawing.Point(192, 391);
-            this.comboestado.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboestado.Margin = new System.Windows.Forms.Padding(2);
             this.comboestado.MaxDropDownItems = 4;
             this.comboestado.MouseState = MaterialSkin.MouseState.OUT;
             this.comboestado.Name = "comboestado";
@@ -307,7 +307,7 @@ namespace SENDAPLUS
             this.txtconsultarevento.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.txtconsultarevento.LeadingIcon = null;
             this.txtconsultarevento.Location = new System.Drawing.Point(752, 70);
-            this.txtconsultarevento.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtconsultarevento.Margin = new System.Windows.Forms.Padding(2);
             this.txtconsultarevento.MaxLength = 50;
             this.txtconsultarevento.MouseState = MaterialSkin.MouseState.OUT;
             this.txtconsultarevento.Multiline = false;
@@ -341,7 +341,7 @@ namespace SENDAPLUS
             this.Estado});
             this.dataEVENTOSv.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.dataEVENTOSv.Location = new System.Drawing.Point(385, 124);
-            this.dataEVENTOSv.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dataEVENTOSv.Margin = new System.Windows.Forms.Padding(2);
             this.dataEVENTOSv.Name = "dataEVENTOSv";
             this.dataEVENTOSv.RowHeadersWidth = 62;
             this.dataEVENTOSv.RowTemplate.Height = 28;
@@ -433,7 +433,7 @@ namespace SENDAPLUS
             this.txtLugar.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.txtLugar.LeadingIcon = null;
             this.txtLugar.Location = new System.Drawing.Point(192, 318);
-            this.txtLugar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtLugar.Margin = new System.Windows.Forms.Padding(2);
             this.txtLugar.MaxLength = 50;
             this.txtLugar.MouseState = MaterialSkin.MouseState.OUT;
             this.txtLugar.Multiline = false;
@@ -489,7 +489,7 @@ namespace SENDAPLUS
             this.Controls.Add(this.lblFechayhoradeinicio);
             this.Controls.Add(this.lblTipodeevento);
             this.Controls.Add(this.lblNombredelevento);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Crear_Evento";
             this.Padding = new System.Windows.Forms.Padding(2, 42, 2, 2);
             this.Text = "CREAR EVENTO";

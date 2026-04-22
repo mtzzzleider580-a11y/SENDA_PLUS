@@ -47,19 +47,16 @@ namespace SENDAPLUS
             cra.Show();
             this.Hide();
         }
+        // no se usa era redundante 
 
         private void btnConsultarEvento_Click(object sender, EventArgs e)
         {
-            var frm = new Crear_Evento(usuarioActual);
-            frm.Show();
-            this.Hide();
+            
         }
-
+        // no se usa era redundante 
         private void btnActualizarEventos_Click(object sender, EventArgs e)
         {
-            var frm = new Crear_Evento(usuarioActual);
-            frm.Show();
-            this.Hide();
+           
 
         }
 
