@@ -20,20 +20,6 @@ namespace SENDAPLUS
             InitializeComponent();
         }
 
-        private async void button1_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                var conexion = new Conectar();
-
-                var total = await conexion.Usuarios().CountDocumentsAsync(Builders<Usuarios>.Filter.Empty);
-
-                MessageBox.Show("Conectado. Usuarios: " + total);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex.Message);
-            }
-        }
+      
     }
 }
