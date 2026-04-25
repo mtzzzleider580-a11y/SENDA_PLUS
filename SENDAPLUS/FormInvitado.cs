@@ -8,13 +8,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace SENDAPLUS
 {
     public partial class FormInvitado : Form
     {
-        public FormInvitado()
+        private Usuarios usuarioActual;
+
+        public FormInvitado(Usuarios usuario)
         {
             InitializeComponent();
+            usuarioActual = usuario;
         }
     }
 }

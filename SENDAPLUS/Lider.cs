@@ -8,13 +8,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace SENDAPLUS
 {
     public partial class Lider : Form
     {
-        public Lider()
+        private Usuarios usuarioActual;
+
+        public Lider(Usuarios usuario)
         {
             InitializeComponent();
+            usuarioActual = usuario;
         }
     }
 }

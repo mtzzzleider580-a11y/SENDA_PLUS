@@ -21,7 +21,7 @@ namespace SENDAPLUS
             public Conectar()
             {
 
-                var client = new MongoClient("mongodb://localhost:27017");
+                var client = new MongoClient("mongodb://localhost:27017/");
                 database = client.GetDatabase("SENDAPLUS");
             }
 
