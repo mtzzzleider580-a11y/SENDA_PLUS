@@ -23,5 +23,16 @@ namespace SENDAPLUS
             InitializeComponent();
             usuarioActual = usuario;
         }
+
+        private void Lider_Load(object sender, EventArgs e)
+        {
+            label1.Text = "Bienvenido" + usuarioActual.Nombre;
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

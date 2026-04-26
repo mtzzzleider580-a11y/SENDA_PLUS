@@ -121,5 +121,12 @@ namespace SENDAPLUS
                 txtContraseña.Password = true;
             }
         }
+
+        private void btnRegistrarse_Click(object sender, EventArgs e)
+        {
+            FormREGISTRO frm = new FormREGISTRO();
+            frm.Show();
+            this.Hide();
+        }
     }
 }
