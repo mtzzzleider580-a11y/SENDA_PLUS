@@ -7,11 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MaterialSkin;
+using MaterialSkin.Controls;
+using MongoDB.Driver;
 
 
 namespace SENDAPLUS
 {
-    public partial class FormInvitado : Form
+    public partial class FormInvitado : MaterialForm
     {
         private Usuarios usuarioActual;
 

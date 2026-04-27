@@ -32,15 +32,17 @@ namespace SENDAPLUS
             );
 
             // Conexión Mongo
-            cliente = new MongoClient("mongodb://localhost:27017");
-            db = cliente.GetDatabase("SENDAPLUS");
-            coleccionUsuarios = db.GetCollection<Usuarios>("usuarios");
+            var conexion = new ConexionMongo.Conectar();
+
+            // Aquí obtienes la colección 
+            coleccionUsuarios = conexion.Usuarios();
         }
 
         private async void btnIniciarsesion_Click(object sender, EventArgs e)
         {
+            // Obtener datos del formulario
             string correo = txtCorreo.Text.Trim().ToLower();
-            string password = txtContraseña.Text.Trim(); // el control puede llamarse así, pero el modelo usa Password
+            string password = txtContraseña.Text.Trim();
 
             // Validar campos vacíos
             if (string.IsNullOrEmpty(correo) || string.IsNullOrEmpty(password))
@@ -51,26 +53,27 @@ namespace SENDAPLUS
 
             try
             {
-                // Buscar usuario
+                //  FILTRO DE BÚSQUEDA
                 var filtro = Builders<Usuarios>.Filter.And(
                     Builders<Usuarios>.Filter.Eq(u => u.Correo, correo),
                     Builders<Usuarios>.Filter.Eq(u => u.Password, password)
-                );
+                  );
 
-                var usuario = await coleccionUsuarios
-                    .Find(filtro)
-                    .FirstOrDefaultAsync();
+                // Buscar en Mongo
+                var usuario = await coleccionUsuarios.Find(filtro).FirstOrDefaultAsync();
 
+                // Si no existe
                 if (usuario == null)
                 {
                     MessageBox.Show("Correo o contraseña incorrectos");
                     return;
                 }
 
-                // Redirección por rol
-                if (usuario.Rol == "lider")
+                // Redirección según rol
+                if (usuario.Rol == "Lider")
                 {
                     MessageBox.Show("Bienvenido líder");
+
                     Lider frm = new Lider(usuario);
                     frm.Show();
                     this.Hide();
@@ -78,13 +81,10 @@ namespace SENDAPLUS
                 else if (usuario.Rol == "invitado")
                 {
                     MessageBox.Show("Bienvenido invitado");
+
                     FormInvitado frm = new FormInvitado(usuario);
                     frm.Show();
                     this.Hide();
-                }
-                else
-                {
-                    MessageBox.Show("Rol no reconocido");
                 }
             }
             catch (Exception ex)

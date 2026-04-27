@@ -21,23 +21,23 @@ namespace SENDAPLUS
             public Conectar()
             {
 
-                var client = new MongoClient("mongodb://localhost:27017/");
+                var client = new MongoClient("mongodb://localhost:27017/"); 
                 database = client.GetDatabase("SENDAPLUS");
             }
 
             public IMongoCollection<Usuarios> Usuarios()
             {
-                return database.GetCollection<Usuarios>("usuarios");
+                return database.GetCollection<Usuarios>("Usuarios");
             }
 
             public IMongoCollection<Evento> Eventos()
             {
-                return database.GetCollection<Evento>("eventos");
+                return database.GetCollection<Evento>("Evento");
             }
 
             public IMongoCollection<Invitacion> Invitacion()
             {
-                return database.GetCollection<Invitacion>("invitaciones");
+                return database.GetCollection<Invitacion>("Invitacion");
             }
         
         }

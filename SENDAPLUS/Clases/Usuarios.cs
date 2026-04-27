@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,16 +10,23 @@ namespace SENDAPLUS
 {
     public class Usuarios
     {
-      
-        
-                public string Id { get; set; }
-                public string Nombre { get; set; }
-                public string Correo { get; set; }
-                public string Password { get; set; }   
-                public string Rol { get; set; }
-                public string NumeroDocumento { get; set; }
-            
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
 
-        
+        [BsonElement("nombre")]
+        public string Nombre { get; set; }
+
+        [BsonElement("correo")]
+        public string Correo { get; set; }
+
+        [BsonElement("password")]
+        public string Password { get; set; }
+
+        [BsonElement("rol")]
+        public string Rol { get; set; }
+
+        [BsonElement("Numerodocumento")]
+        public int NumeroDocumento { get; set; }
     }
 }
