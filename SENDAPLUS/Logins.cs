@@ -128,5 +128,15 @@ namespace SENDAPLUS
             frm.Show();
             this.Hide();
         }
+
+        private void materialLabel2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FormLogin_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
