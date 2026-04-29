@@ -1,39 +1,142 @@
-﻿using MongoDB.Driver;
+﻿using MaterialSkin;
+using MaterialSkin.Controls;
+using MongoDB.Driver;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static SENDAPLUS.ConexionMongo;
-using static SENDAPLUS.Usuarios;
+
 
 namespace SENDAPLUS
 {
-    public partial class Logins : Form
+    public partial class FormLogin : MaterialForm
     {
-        public Logins()
+        private MongoClient cliente;
+        private IMongoDatabase db;
+        private IMongoCollection<Usuarios> coleccionUsuarios;
+
+        public FormLogin()
         {
             InitializeComponent();
+
+            // MaterialSkin aqui se configura el tema y los colores de el formulario
+            var materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.AddFormToManage(this);
+
+            materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
+
+            materialSkinManager.ColorScheme = new ColorScheme(
+                Primary.Green600,
+                Primary.Green700,
+                Primary.Green200,
+                Accent.LightGreen200,
+                TextShade.WHITE
+            );
+
+            // Conexión Mongo
+            var conexion = new ConexionMongo.Conectar();
+
+            // Aquí obtienes la colección 
+            coleccionUsuarios = conexion.Usuarios();
         }
 
-        private async void button1_Click(object sender, EventArgs e)
+        private async void btnIniciarsesion_Click(object sender, EventArgs e)
         {
+            // Obtener datos del formulario
+            string correo = txtCorreo.Text.Trim().ToLower();
+            string password = txtContraseña.Text.Trim();
+
+            // Validar campos vacíos
+            if (string.IsNullOrEmpty(correo) || string.IsNullOrEmpty(password))
+            {
+                MessageBox.Show("Debe llenar todos los campos");
+                return;
+            }
+
             try
             {
-                var conexion = new Conectar();
+                //  FILTRO DE BÚSQUEDA
+                var filtro = Builders<Usuarios>.Filter.And(
+                    Builders<Usuarios>.Filter.Eq(u => u.Correo, correo),
+                    Builders<Usuarios>.Filter.Eq(u => u.Password, password)
+                  );
 
-                var total = await conexion.Usuarios().CountDocumentsAsync(Builders<Usuarios>.Filter.Empty);
+                // Buscar en Mongo
+                var usuario = await coleccionUsuarios.Find(filtro).FirstOrDefaultAsync();
 
-                MessageBox.Show("Conectado. Usuarios: " + total);
+                // Si no existe
+                if (usuario == null)
+                {
+                    MessageBox.Show("Correo o contraseña incorrectos");
+                    return;
+                }
+
+                // Redirección según rol
+                if (usuario.Rol == "Lider")
+                {
+                    MessageBox.Show("Bienvenido líder");
+
+                    Lider frm = new Lider(usuario);
+                    frm.Show();
+                    this.Hide();
+                }
+                else if (usuario.Rol == "invitado")
+                {
+                    MessageBox.Show("Bienvenido invitado");
+
+                    FormInvitado frm = new FormInvitado(usuario);
+                    frm.Show();
+                    this.Hide();
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show(
+                "¿Desea salir de SENDAPLUS?",
+                "Salir",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (result == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+        }
+
+        private void btnmostrarEocultar_Click(object sender, EventArgs e)
+        {
+            if (txtContraseña.Password)
+            {
+                // Mostrar contraseña
+                txtContraseña.Password = false;
+            }
+            else
+            {
+                // Ocultar contraseña
+                txtContraseña.Password = true;
+            }
+        }
+
+        private void btnRegistrarse_Click(object sender, EventArgs e)
+        {
+            FormREGISTRO frm = new FormREGISTRO();
+            frm.Show();
+            this.Hide();
+        }
+
+        private void materialLabel2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FormLogin_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

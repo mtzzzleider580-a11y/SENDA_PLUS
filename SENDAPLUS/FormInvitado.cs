@@ -7,14 +7,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MaterialSkin;
+using MaterialSkin.Controls;
+using MongoDB.Driver;
+
 
 namespace SENDAPLUS
 {
-    public partial class FormInvitado : Form
+    public partial class FormInvitado : MaterialForm
     {
-        public FormInvitado()
+        private Usuarios usuarioActual;
+
+        public FormInvitado(Usuarios usuario)
         {
             InitializeComponent();
+            usuarioActual = usuario;
+        }
+
+        private void FormInvitado_Load(object sender, EventArgs e)
+        {
+            label1.Text = "Bienvenid@ " + usuarioActual.Nombre;
+        
+    }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
