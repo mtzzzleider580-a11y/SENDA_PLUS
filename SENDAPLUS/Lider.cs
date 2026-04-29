@@ -26,7 +26,7 @@ namespace SENDAPLUS
 
         private void Lider_Load(object sender, EventArgs e)
         {
-            label1.Text = "Bienvenido" + usuarioActual.Nombre;
+            label1.Text = "Bienvenido"  +  usuarioActual.Nombre;
 
         }
 

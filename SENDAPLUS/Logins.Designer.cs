@@ -30,7 +30,6 @@
         {
             this.txtCorreo = new MaterialSkin.Controls.MaterialTextBox();
             this.txtContraseña = new MaterialSkin.Controls.MaterialTextBox();
-            this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
             this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
             this.materialLabel3 = new MaterialSkin.Controls.MaterialLabel();
             this.btnIniciarsesion = new MaterialSkin.Controls.MaterialButton();
@@ -47,8 +46,8 @@
             this.txtCorreo.Depth = 0;
             this.txtCorreo.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.txtCorreo.LeadingIcon = null;
-            this.txtCorreo.Location = new System.Drawing.Point(65, 145);
-            this.txtCorreo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtCorreo.Location = new System.Drawing.Point(260, 118);
+            this.txtCorreo.Margin = new System.Windows.Forms.Padding(2);
             this.txtCorreo.MaxLength = 50;
             this.txtCorreo.MouseState = MaterialSkin.MouseState.OUT;
             this.txtCorreo.Multiline = false;
@@ -65,8 +64,8 @@
             this.txtContraseña.Depth = 0;
             this.txtContraseña.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.txtContraseña.LeadingIcon = null;
-            this.txtContraseña.Location = new System.Drawing.Point(65, 244);
-            this.txtContraseña.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtContraseña.Location = new System.Drawing.Point(260, 213);
+            this.txtContraseña.Margin = new System.Windows.Forms.Padding(2);
             this.txtContraseña.MaxLength = 50;
             this.txtContraseña.MouseState = MaterialSkin.MouseState.OUT;
             this.txtContraseña.Multiline = false;
@@ -77,38 +76,26 @@
             this.txtContraseña.Text = "";
             this.txtContraseña.TrailingIcon = null;
             // 
-            // materialLabel1
-            // 
-            this.materialLabel1.AutoSize = true;
-            this.materialLabel1.Depth = 0;
-            this.materialLabel1.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel1.Location = new System.Drawing.Point(16, 64);
-            this.materialLabel1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel1.Name = "materialLabel1";
-            this.materialLabel1.Size = new System.Drawing.Size(96, 19);
-            this.materialLabel1.TabIndex = 2;
-            this.materialLabel1.Text = "Iniciar Sesión";
-            // 
             // materialLabel2
             // 
             this.materialLabel2.AutoSize = true;
             this.materialLabel2.Depth = 0;
             this.materialLabel2.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel2.Location = new System.Drawing.Point(136, 115);
+            this.materialLabel2.Location = new System.Drawing.Point(324, 97);
             this.materialLabel2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.materialLabel2.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel2.Name = "materialLabel2";
             this.materialLabel2.Size = new System.Drawing.Size(133, 19);
             this.materialLabel2.TabIndex = 3;
             this.materialLabel2.Text = "Correo Electronico:";
+            this.materialLabel2.Click += new System.EventHandler(this.materialLabel2_Click);
             // 
             // materialLabel3
             // 
             this.materialLabel3.AutoSize = true;
             this.materialLabel3.Depth = 0;
             this.materialLabel3.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel3.Location = new System.Drawing.Point(150, 214);
+            this.materialLabel3.Location = new System.Drawing.Point(340, 192);
             this.materialLabel3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.materialLabel3.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel3.Name = "materialLabel3";
@@ -123,7 +110,7 @@
             this.btnIniciarsesion.Depth = 0;
             this.btnIniciarsesion.HighEmphasis = true;
             this.btnIniciarsesion.Icon = null;
-            this.btnIniciarsesion.Location = new System.Drawing.Point(127, 355);
+            this.btnIniciarsesion.Location = new System.Drawing.Point(308, 290);
             this.btnIniciarsesion.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.btnIniciarsesion.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnIniciarsesion.Name = "btnIniciarsesion";
@@ -143,7 +130,7 @@
             this.btnRegistrarse.Depth = 0;
             this.btnRegistrarse.HighEmphasis = true;
             this.btnRegistrarse.Icon = null;
-            this.btnRegistrarse.Location = new System.Drawing.Point(542, 173);
+            this.btnRegistrarse.Location = new System.Drawing.Point(65, 395);
             this.btnRegistrarse.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.btnRegistrarse.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnRegistrarse.Name = "btnRegistrarse";
@@ -161,7 +148,7 @@
             this.materialLabel4.AutoSize = true;
             this.materialLabel4.Depth = 0;
             this.materialLabel4.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel4.Location = new System.Drawing.Point(542, 132);
+            this.materialLabel4.Location = new System.Drawing.Point(66, 365);
             this.materialLabel4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.materialLabel4.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel4.Name = "materialLabel4";
@@ -176,7 +163,7 @@
             this.btnSalir.Depth = 0;
             this.btnSalir.HighEmphasis = true;
             this.btnSalir.Icon = null;
-            this.btnSalir.Location = new System.Drawing.Point(688, 383);
+            this.btnSalir.Location = new System.Drawing.Point(672, 395);
             this.btnSalir.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.btnSalir.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnSalir.Name = "btnSalir";
@@ -197,7 +184,7 @@
             this.btnmostrarEocultar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnmostrarEocultar.HighEmphasis = true;
             this.btnmostrarEocultar.Icon = null;
-            this.btnmostrarEocultar.Location = new System.Drawing.Point(325, 254);
+            this.btnmostrarEocultar.Location = new System.Drawing.Point(518, 227);
             this.btnmostrarEocultar.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.btnmostrarEocultar.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnmostrarEocultar.Name = "btnmostrarEocultar";
@@ -222,11 +209,11 @@
             this.Controls.Add(this.btnIniciarsesion);
             this.Controls.Add(this.materialLabel3);
             this.Controls.Add(this.materialLabel2);
-            this.Controls.Add(this.materialLabel1);
             this.Controls.Add(this.txtContraseña);
             this.Controls.Add(this.txtCorreo);
             this.Name = "FormLogin";
             this.Text = "Inicio de Sesión";
+            this.Load += new System.EventHandler(this.FormLogin_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -236,7 +223,6 @@
 
         private MaterialSkin.Controls.MaterialTextBox txtCorreo;
         private MaterialSkin.Controls.MaterialTextBox txtContraseña;
-        private MaterialSkin.Controls.MaterialLabel materialLabel1;
         private MaterialSkin.Controls.MaterialLabel materialLabel2;
         private MaterialSkin.Controls.MaterialLabel materialLabel3;
         private MaterialSkin.Controls.MaterialButton btnIniciarsesion;
