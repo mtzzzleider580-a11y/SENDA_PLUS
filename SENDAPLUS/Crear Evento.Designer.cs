@@ -47,10 +47,12 @@
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Correo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Seleccionar = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Correo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblEstado = new MaterialSkin.Controls.MaterialLabel();
+            this.materialComboBox2 = new MaterialSkin.Controls.MaterialComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvInvitados)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSeleccionados)).BeginInit();
             this.SuspendLayout();
@@ -164,7 +166,7 @@
             this.btnAgregarInvitados.Depth = 0;
             this.btnAgregarInvitados.HighEmphasis = true;
             this.btnAgregarInvitados.Icon = null;
-            this.btnAgregarInvitados.Location = new System.Drawing.Point(114, 413);
+            this.btnAgregarInvitados.Location = new System.Drawing.Point(99, 464);
             this.btnAgregarInvitados.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnAgregarInvitados.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnAgregarInvitados.Name = "btnAgregarInvitados";
@@ -280,11 +282,11 @@
             this.Nombre,
             this.Correo,
             this.Seleccionar});
-            this.dgvInvitados.Location = new System.Drawing.Point(451, 85);
+            this.dgvInvitados.Location = new System.Drawing.Point(436, 85);
             this.dgvInvitados.Name = "dgvInvitados";
             this.dgvInvitados.RowHeadersWidth = 62;
             this.dgvInvitados.RowTemplate.Height = 28;
-            this.dgvInvitados.Size = new System.Drawing.Size(457, 386);
+            this.dgvInvitados.Size = new System.Drawing.Size(472, 386);
             this.dgvInvitados.TabIndex = 16;
             // 
             // dgvSeleccionados
@@ -324,20 +326,12 @@
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.Width = 150;
             // 
-            // Id
+            // Seleccionar
             // 
-            this.Id.HeaderText = "";
-            this.Id.MinimumWidth = 8;
-            this.Id.Name = "Id";
-            this.Id.Visible = false;
-            this.Id.Width = 150;
-            // 
-            // Nombre
-            // 
-            this.Nombre.HeaderText = "Nombre";
-            this.Nombre.MinimumWidth = 8;
-            this.Nombre.Name = "Nombre";
-            this.Nombre.Width = 150;
+            this.Seleccionar.HeaderText = "";
+            this.Seleccionar.MinimumWidth = 8;
+            this.Seleccionar.Name = "Seleccionar";
+            this.Seleccionar.Width = 150;
             // 
             // Correo
             // 
@@ -346,19 +340,67 @@
             this.Correo.Name = "Correo";
             this.Correo.Width = 150;
             // 
-            // Seleccionar
+            // Nombre
             // 
-            this.Seleccionar.HeaderText = "";
-            this.Seleccionar.MinimumWidth = 8;
-            this.Seleccionar.Name = "Seleccionar";
-            this.Seleccionar.Width = 150;
+            this.Nombre.HeaderText = "Nombre";
+            this.Nombre.MinimumWidth = 8;
+            this.Nombre.Name = "Nombre";
+            this.Nombre.Width = 150;
+            // 
+            // Id
+            // 
+            this.Id.HeaderText = "";
+            this.Id.MinimumWidth = 8;
+            this.Id.Name = "Id";
+            this.Id.Visible = false;
+            this.Id.Width = 150;
+            // 
+            // lblEstado
+            // 
+            this.lblEstado.AutoSize = true;
+            this.lblEstado.Depth = 0;
+            this.lblEstado.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.lblEstado.Location = new System.Drawing.Point(37, 397);
+            this.lblEstado.MouseState = MaterialSkin.MouseState.HOVER;
+            this.lblEstado.Name = "lblEstado";
+            this.lblEstado.Size = new System.Drawing.Size(50, 19);
+            this.lblEstado.TabIndex = 18;
+            this.lblEstado.Text = "Estado";
+            // 
+            // materialComboBox2
+            // 
+            this.materialComboBox2.AutoResize = false;
+            this.materialComboBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.materialComboBox2.Depth = 0;
+            this.materialComboBox2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.materialComboBox2.DropDownHeight = 174;
+            this.materialComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.materialComboBox2.DropDownWidth = 121;
+            this.materialComboBox2.Font = new System.Drawing.Font("Roboto Medium", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.materialComboBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialComboBox2.FormattingEnabled = true;
+            this.materialComboBox2.IntegralHeight = false;
+            this.materialComboBox2.ItemHeight = 43;
+            this.materialComboBox2.Items.AddRange(new object[] {
+            "Activo",
+            "Desactivado"});
+            this.materialComboBox2.Location = new System.Drawing.Point(212, 397);
+            this.materialComboBox2.MaxDropDownItems = 4;
+            this.materialComboBox2.MouseState = MaterialSkin.MouseState.OUT;
+            this.materialComboBox2.Name = "materialComboBox2";
+            this.materialComboBox2.Size = new System.Drawing.Size(210, 49);
+            this.materialComboBox2.StartIndex = 0;
+            this.materialComboBox2.TabIndex = 19;
+            this.materialComboBox2.SelectedIndexChanged += new System.EventHandler(this.materialComboBox2_SelectedIndexChanged);
             // 
             // Crear_Evento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(1278, 636);
+            this.ClientSize = new System.Drawing.Size(1292, 636);
+            this.Controls.Add(this.materialComboBox2);
+            this.Controls.Add(this.lblEstado);
             this.Controls.Add(this.dgvSeleccionados);
             this.Controls.Add(this.dgvInvitados);
             this.Controls.Add(this.btnVolver);
@@ -409,5 +451,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn Correo;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Seleccionar;
+        private MaterialSkin.Controls.MaterialLabel lblEstado;
+        private MaterialSkin.Controls.MaterialComboBox materialComboBox2;
     }
 }

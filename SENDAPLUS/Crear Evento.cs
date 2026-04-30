@@ -201,5 +201,17 @@ namespace SENDAPLUS
         {
             this.Close();
         }
+
+        private void materialComboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (materialComboBox2.SelectedItem.ToString() == "Activo")
+            {
+                materialComboBox2.Text = "Activo";
+            }
+            else
+            {
+                materialComboBox2.Text = "Desactivado";
+            }
+        }
     }
 }
