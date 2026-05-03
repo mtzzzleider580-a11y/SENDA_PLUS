@@ -29,18 +29,20 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.btnConsultar = new System.Windows.Forms.Button();
             this.lblFiltrarpormes = new MaterialSkin.Controls.MaterialLabel();
             this.materialComboBox1 = new MaterialSkin.Controls.MaterialComboBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.btnCerrarsesión = new MaterialSkin.Controls.MaterialButton();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Hora = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HoraInicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HoraFin = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Lugar = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnCerrarsesión = new MaterialSkin.Controls.MaterialButton();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -116,7 +118,7 @@
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Algerian", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Algerian", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -127,58 +129,25 @@
             this.Nombre,
             this.Tipo,
             this.Fecha,
-            this.Hora,
+            this.HoraInicio,
+            this.HoraFin,
             this.Lugar,
             this.Estado});
-            this.dataGridView1.Location = new System.Drawing.Point(86, 261);
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Algerian", 11F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridView1.Location = new System.Drawing.Point(11, 261);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.RowTemplate.Height = 28;
-            this.dataGridView1.Size = new System.Drawing.Size(1212, 415);
+            this.dataGridView1.Size = new System.Drawing.Size(1364, 415);
             this.dataGridView1.TabIndex = 4;
-            // 
-            // Nombre
-            // 
-            this.Nombre.FillWeight = 81.08108F;
-            this.Nombre.HeaderText = "Nombre";
-            this.Nombre.MinimumWidth = 8;
-            this.Nombre.Name = "Nombre";
-            // 
-            // Tipo
-            // 
-            this.Tipo.FillWeight = 90.12113F;
-            this.Tipo.HeaderText = "Tipo";
-            this.Tipo.MinimumWidth = 8;
-            this.Tipo.Name = "Tipo";
-            // 
-            // Fecha
-            // 
-            this.Fecha.FillWeight = 97.93956F;
-            this.Fecha.HeaderText = "Fecha";
-            this.Fecha.MinimumWidth = 8;
-            this.Fecha.Name = "Fecha";
-            // 
-            // Hora
-            // 
-            this.Hora.FillWeight = 104.7014F;
-            this.Hora.HeaderText = "Hora";
-            this.Hora.MinimumWidth = 8;
-            this.Hora.Name = "Hora";
-            // 
-            // Lugar
-            // 
-            this.Lugar.FillWeight = 110.5495F;
-            this.Lugar.HeaderText = "Lugar";
-            this.Lugar.MinimumWidth = 8;
-            this.Lugar.Name = "Lugar";
-            // 
-            // Estado
-            // 
-            this.Estado.FillWeight = 115.6073F;
-            this.Estado.HeaderText = "Estado";
-            this.Estado.MinimumWidth = 8;
-            this.Estado.Name = "Estado";
             // 
             // btnCerrarsesión
             // 
@@ -198,6 +167,54 @@
             this.btnCerrarsesión.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.btnCerrarsesión.UseAccentColor = false;
             this.btnCerrarsesión.UseVisualStyleBackColor = true;
+            // 
+            // Nombre
+            // 
+            this.Nombre.FillWeight = 81.08108F;
+            this.Nombre.HeaderText = "Nombre";
+            this.Nombre.MinimumWidth = 8;
+            this.Nombre.Name = "Nombre";
+            // 
+            // Tipo
+            // 
+            this.Tipo.FillWeight = 90.12113F;
+            this.Tipo.HeaderText = "Tipo";
+            this.Tipo.MinimumWidth = 8;
+            this.Tipo.Name = "Tipo";
+            // 
+            // Fecha
+            // 
+            this.Fecha.HeaderText = "Fecha";
+            this.Fecha.MinimumWidth = 8;
+            this.Fecha.Name = "Fecha";
+            // 
+            // HoraInicio
+            // 
+            this.HoraInicio.FillWeight = 97.93956F;
+            this.HoraInicio.HeaderText = "Hora Inicio";
+            this.HoraInicio.MinimumWidth = 8;
+            this.HoraInicio.Name = "HoraInicio";
+            // 
+            // HoraFin
+            // 
+            this.HoraFin.FillWeight = 104.7014F;
+            this.HoraFin.HeaderText = "Hora Fin";
+            this.HoraFin.MinimumWidth = 8;
+            this.HoraFin.Name = "HoraFin";
+            // 
+            // Lugar
+            // 
+            this.Lugar.FillWeight = 110.5495F;
+            this.Lugar.HeaderText = "Lugar";
+            this.Lugar.MinimumWidth = 8;
+            this.Lugar.Name = "Lugar";
+            // 
+            // Estado
+            // 
+            this.Estado.FillWeight = 115.6073F;
+            this.Estado.HeaderText = "Estado";
+            this.Estado.MinimumWidth = 8;
+            this.Estado.Name = "Estado";
             // 
             // FormInvitado
             // 
@@ -230,12 +247,13 @@
         private MaterialSkin.Controls.MaterialLabel lblFiltrarpormes;
         private MaterialSkin.Controls.MaterialComboBox materialComboBox1;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private MaterialSkin.Controls.MaterialButton btnCerrarsesión;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tipo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Hora;
+        private System.Windows.Forms.DataGridViewTextBoxColumn HoraInicio;
+        private System.Windows.Forms.DataGridViewTextBoxColumn HoraFin;
         private System.Windows.Forms.DataGridViewTextBoxColumn Lugar;
         private System.Windows.Forms.DataGridViewTextBoxColumn Estado;
-        private MaterialSkin.Controls.MaterialButton btnCerrarsesión;
     }
 }

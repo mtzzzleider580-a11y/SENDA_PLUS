@@ -43,14 +43,14 @@
             this.btnCancelarEvento = new MaterialSkin.Controls.MaterialButton();
             this.btnVolver = new MaterialSkin.Controls.MaterialButton();
             this.dgvInvitados = new System.Windows.Forms.DataGridView();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Correo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Seleccionar = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dgvSeleccionados = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Seleccionar = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Correo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblEstado = new MaterialSkin.Controls.MaterialLabel();
             this.materialComboBox2 = new MaterialSkin.Controls.MaterialComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvInvitados)).BeginInit();
@@ -146,6 +146,7 @@
             // 
             // dateTimePicker1
             // 
+            this.dateTimePicker1.CustomFormat = "dd/MM/yyyy HH:mm";
             this.dateTimePicker1.Location = new System.Drawing.Point(220, 281);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(210, 26);
@@ -154,6 +155,7 @@
             // 
             // dateTimePicker2
             // 
+            this.dateTimePicker2.CustomFormat = "dd/MM/yyyy HH:mm";
             this.dateTimePicker2.Location = new System.Drawing.Point(220, 348);
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(210, 26);
@@ -289,6 +291,35 @@
             this.dgvInvitados.Size = new System.Drawing.Size(472, 386);
             this.dgvInvitados.TabIndex = 16;
             // 
+            // Id
+            // 
+            this.Id.HeaderText = "";
+            this.Id.MinimumWidth = 8;
+            this.Id.Name = "Id";
+            this.Id.Visible = false;
+            this.Id.Width = 150;
+            // 
+            // Nombre
+            // 
+            this.Nombre.HeaderText = "Nombre";
+            this.Nombre.MinimumWidth = 8;
+            this.Nombre.Name = "Nombre";
+            this.Nombre.Width = 150;
+            // 
+            // Correo
+            // 
+            this.Correo.HeaderText = "Correo";
+            this.Correo.MinimumWidth = 8;
+            this.Correo.Name = "Correo";
+            this.Correo.Width = 150;
+            // 
+            // Seleccionar
+            // 
+            this.Seleccionar.HeaderText = "";
+            this.Seleccionar.MinimumWidth = 8;
+            this.Seleccionar.Name = "Seleccionar";
+            this.Seleccionar.Width = 150;
+            // 
             // dgvSeleccionados
             // 
             this.dgvSeleccionados.AllowUserToAddRows = false;
@@ -326,35 +357,6 @@
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.Width = 150;
             // 
-            // Seleccionar
-            // 
-            this.Seleccionar.HeaderText = "";
-            this.Seleccionar.MinimumWidth = 8;
-            this.Seleccionar.Name = "Seleccionar";
-            this.Seleccionar.Width = 150;
-            // 
-            // Correo
-            // 
-            this.Correo.HeaderText = "Correo";
-            this.Correo.MinimumWidth = 8;
-            this.Correo.Name = "Correo";
-            this.Correo.Width = 150;
-            // 
-            // Nombre
-            // 
-            this.Nombre.HeaderText = "Nombre";
-            this.Nombre.MinimumWidth = 8;
-            this.Nombre.Name = "Nombre";
-            this.Nombre.Width = 150;
-            // 
-            // Id
-            // 
-            this.Id.HeaderText = "";
-            this.Id.MinimumWidth = 8;
-            this.Id.Name = "Id";
-            this.Id.Visible = false;
-            this.Id.Width = 150;
-            // 
             // lblEstado
             // 
             this.lblEstado.AutoSize = true;
@@ -376,7 +378,7 @@
             this.materialComboBox2.DropDownHeight = 174;
             this.materialComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.materialComboBox2.DropDownWidth = 121;
-            this.materialComboBox2.Font = new System.Drawing.Font("Roboto Medium", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.materialComboBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.materialComboBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.materialComboBox2.FormattingEnabled = true;
             this.materialComboBox2.IntegralHeight = false;
