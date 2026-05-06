@@ -149,7 +149,7 @@ namespace SENDAPLUS
             this.materialTextBox1.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.materialTextBox1.LeadingIcon = null;
             this.materialTextBox1.Location = new System.Drawing.Point(174, 78);
-            this.materialTextBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.materialTextBox1.Margin = new System.Windows.Forms.Padding(2);
             this.materialTextBox1.MaxLength = 50;
             this.materialTextBox1.MouseState = MaterialSkin.MouseState.OUT;
             this.materialTextBox1.Multiline = false;
@@ -178,7 +178,7 @@ namespace SENDAPLUS
             "Cultural",
             "Deportivo"});
             this.materialComboBox1.Location = new System.Drawing.Point(174, 159);
-            this.materialComboBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.materialComboBox1.Margin = new System.Windows.Forms.Padding(2);
             this.materialComboBox1.MaxDropDownItems = 4;
             this.materialComboBox1.MouseState = MaterialSkin.MouseState.OUT;
             this.materialComboBox1.Name = "materialComboBox1";
@@ -191,7 +191,7 @@ namespace SENDAPLUS
             this.dateTimePicker1.CustomFormat = "dd/MM/yyyy HH:mm";
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePicker1.Location = new System.Drawing.Point(192, 250);
-            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(141, 20);
             this.dateTimePicker1.TabIndex = 6;
@@ -201,7 +201,7 @@ namespace SENDAPLUS
             this.dateTimePicker2.CustomFormat = "dd/MM/yyyy HH:mm";
             this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePicker2.Location = new System.Drawing.Point(192, 307);
-            this.dateTimePicker2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dateTimePicker2.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(141, 20);
             this.dateTimePicker2.TabIndex = 7;
@@ -277,7 +277,7 @@ namespace SENDAPLUS
             "Activo",
             "Desactivado"});
             this.materialComboBox2.Location = new System.Drawing.Point(192, 401);
-            this.materialComboBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.materialComboBox2.Margin = new System.Windows.Forms.Padding(2);
             this.materialComboBox2.MaxDropDownItems = 4;
             this.materialComboBox2.MouseState = MaterialSkin.MouseState.OUT;
             this.materialComboBox2.Name = "materialComboBox2";
@@ -326,7 +326,7 @@ namespace SENDAPLUS
             this.txtconsultarevento.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.txtconsultarevento.LeadingIcon = null;
             this.txtconsultarevento.Location = new System.Drawing.Point(752, 70);
-            this.txtconsultarevento.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtconsultarevento.Margin = new System.Windows.Forms.Padding(2);
             this.txtconsultarevento.MaxLength = 50;
             this.txtconsultarevento.MouseState = MaterialSkin.MouseState.OUT;
             this.txtconsultarevento.Multiline = false;
@@ -359,7 +359,7 @@ namespace SENDAPLUS
             this.Estado});
             this.dataGridView1.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.dataGridView1.Location = new System.Drawing.Point(385, 124);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.RowTemplate.Height = 28;
@@ -449,7 +449,7 @@ namespace SENDAPLUS
             this.txtLugar.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.txtLugar.LeadingIcon = null;
             this.txtLugar.Location = new System.Drawing.Point(192, 350);
-            this.txtLugar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtLugar.Margin = new System.Windows.Forms.Padding(2);
             this.txtLugar.MaxLength = 50;
             this.txtLugar.MouseState = MaterialSkin.MouseState.OUT;
             this.txtLugar.Multiline = false;
@@ -458,6 +458,7 @@ namespace SENDAPLUS
             this.txtLugar.TabIndex = 26;
             this.txtLugar.Text = "";
             this.txtLugar.TrailingIcon = null;
+            this.txtLugar.TextChanged += new System.EventHandler(this.txtLugar_TextChanged);
             // 
             // Crear_Evento
             // 
@@ -484,7 +485,7 @@ namespace SENDAPLUS
             this.Controls.Add(this.lblFechayhoradeinicio);
             this.Controls.Add(this.lblTipodeevento);
             this.Controls.Add(this.lblNombredelevento);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Crear_Evento";
             this.Padding = new System.Windows.Forms.Padding(2, 42, 2, 2);
             this.Text = "CREAR EVENTO";

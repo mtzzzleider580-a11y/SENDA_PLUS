@@ -128,6 +128,7 @@
             this.txtcorreo.TabIndex = 16;
             this.txtcorreo.Text = "";
             this.txtcorreo.TrailingIcon = null;
+            this.txtcorreo.TextChanged += new System.EventHandler(this.txtcorreo_TextChanged);
             // 
             // txtnumerodedocumento
             // 
@@ -219,7 +220,7 @@
             this.materialTextBox1.AnimateReadOnly = false;
             this.materialTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.materialTextBox1.Depth = 0;
-            this.materialTextBox1.Font = new System.Drawing.Font("Roboto", 12F);
+            this.materialTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.materialTextBox1.LeadingIcon = null;
             this.materialTextBox1.Location = new System.Drawing.Point(554, 112);
             this.materialTextBox1.MaxLength = 50;

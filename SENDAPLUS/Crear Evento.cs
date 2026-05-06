@@ -350,26 +350,26 @@ namespace SENDAPLUS
             _isPopulating = false;
         }
 
-        // Poblado centralizado
+        // 
         private void PopulateControls(BsonDocument doc)
         {
-            materialTextBox1.Text = doc.Contains("nombreEvento") ? doc["nombreEvento"].AsString : "";
-            var tipo = doc.Contains("tipoEvento") ? doc["tipoEvento"].AsString : "";
-            for (int i = 0; i < materialComboBox1.Items.Count; i++)
-                if (materialComboBox1.Items[i].ToString().Equals(tipo, StringComparison.OrdinalIgnoreCase)) { materialComboBox1.SelectedIndex = i; break; }
+            // 1. Campos de texto básicos (Uso de BsonDocument.GetValue con valor por defecto)
+            materialTextBox1.Text = doc.GetValue("nombreEvento", "").AsString;
+            txtLugar.Text = doc.GetValue("lugar", "").AsString;
 
-            DateTime fecha = doc.Contains("fecha") ? doc["fecha"].ToLocalTime().Date : DateTime.Now.Date;
-            string hora = doc.Contains("hora") ? doc["hora"].AsString : "09:00";
+            // 2. ComboBoxes (Reemplaza el 'for' por FindStringExact)
+            materialComboBox1.SelectedIndex = materialComboBox1.FindStringExact(doc.GetValue("tipoEvento", "").AsString);
+            materialComboBox2.SelectedIndex = materialComboBox2.FindStringExact(doc.GetValue("estado", "activo").AsString);
 
-            if (!TimeSpan.TryParse(hora, out TimeSpan ts)) ts = TimeSpan.FromHours(9);
-            var desiredStart = fecha.Add(ts);
-            SetPickerValueSafely(dateTimePicker1, desiredStart);
-            SetPickerValueSafely(dateTimePicker2, dateTimePicker1.Value.AddHours(1));
+            // 3. Fecha y Hora (Lógica simplificada)
+            DateTime fecha = doc.GetValue("fecha", DateTime.Now).ToLocalTime().Date;
+            string horaStr = doc.GetValue("hora", "09:00").AsString;
 
-            txtLugar.Text = doc.Contains("lugar") ? doc["lugar"].AsString : "";
-            var estado = doc.Contains("estado") ? doc["estado"].AsString : "activo";
-            for (int i = 0; i < materialComboBox2.Items.Count; i++)
-                if (materialComboBox2.Items[i].ToString().Equals(estado, StringComparison.OrdinalIgnoreCase)) { materialComboBox2.SelectedIndex = i; break; }
+            if (!TimeSpan.TryParse(horaStr, out TimeSpan ts)) ts = TimeSpan.FromHours(9);
+
+            // 4. Asignación a Pickers
+            dateTimePicker1.Value = fecha.Add(ts);
+            dateTimePicker2.Value = dateTimePicker1.Value.AddHours(1);
         }
 
         private async void Txtconsultarevento_TextChangedAsync(object s, EventArgs e) => await BuscarEventosPorNombreAsync(txtconsultarevento.Text.Trim());
@@ -411,27 +411,48 @@ namespace SENDAPLUS
         private async void DataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
-            var idCell = dataGridView1.Rows[e.RowIndex].Cells["ID"].Value;
-            if (idCell == null || !ObjectId.TryParse(idCell.ToString(), out ObjectId eventoId)) { MessageBox.Show("ID de evento inválido."); return; }
 
+            // 1. Obtener ID de forma limpia
+            var idCellValue = dataGridView1.Rows[e.RowIndex].Cells["ID"].Value?.ToString();
+            if (!ObjectId.TryParse(idCellValue, out ObjectId eventoId))
+            {
+                MessageBox.Show("ID de evento inválido.");
+                return;
+            }
+
+            // 2. Buscar en la base de datos
             var doc = await _eventosCollection.Find(Builders<BsonDocument>.Filter.Eq("_id", eventoId)).FirstOrDefaultAsync();
-            if (doc == null) { MessageBox.Show("Evento no encontrado."); return; }
+            if (doc == null)
+            {
+                MessageBox.Show("Evento no encontrado.");
+                return;
+            }
 
-            var nombre = doc.Contains("nombreEvento") ? doc["nombreEvento"].AsString : "";
-            var tipo = doc.Contains("tipoEvento") ? doc["tipoEvento"].AsString : "";
-            var fecha = doc.Contains("fecha") ? doc["fecha"].ToLocalTime().ToString("dd/MM/yyyy") : "";
-            var hora = doc.Contains("hora") ? doc["hora"].AsString : "";
-            var lugar = doc.Contains("lugar") ? doc["lugar"].AsString : "";
-            var estado = doc.Contains("estado") ? doc["estado"].AsString : "";
-            var lider = doc.Contains("liderCorreo") ? doc["liderCorreo"].AsString : "";
+            // 3. Extraer datos con valores por defecto (Sin IFs innecesarios)
+            string nombre = doc.GetValue("nombreEvento", "").AsString;
+            string tipo = doc.GetValue("tipoEvento", "").AsString;
+            string fecha = doc.GetValue("fecha", DateTime.Now).ToLocalTime().ToString("dd/MM/yyyy");
+            string hora = doc.GetValue("hora", "").AsString;
+            string lugar = doc.GetValue("lugar", "").AsString;
+            string estado = doc.GetValue("estado", "").AsString;
+            string lider = doc.GetValue("liderCorreo", "").AsString;
 
-            var texto = $"Nombre: {nombre}\nTipo: {tipo}\nFecha: {fecha}\nHora: {hora}\nLugar: {lugar}\nEstado: {estado}\nLíder: {lider}";
+            // 4. Mostrar mensaje
+            string texto = $"Nombre: {nombre}\nTipo: {tipo}\nFecha: {fecha}\nHora: {hora}\nLugar: {lugar}\nEstado: {estado}\nLíder: {lider}";
             MessageBox.Show(texto, "Detalles del evento", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private async void btnGuardarevento_Click(object sender, EventArgs e)
         {
             await GuardarEventoAsync();
+
+        
+
+        }
+
+        private void txtLugar_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

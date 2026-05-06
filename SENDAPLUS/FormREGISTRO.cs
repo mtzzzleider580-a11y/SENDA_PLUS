@@ -88,17 +88,40 @@ namespace SENDAPLUS
 
             }
 
+            // aqui creo las variables y convierto las cajas de texto 
+
             string nombre = txtnombre.Text.Trim();
             string correo = txtcorreo.Text.Trim().ToLower();
             string password = txtcontraseña.Text.Trim();
             string documento = txtnumerodedocumento.Text.Trim();
 
+            string patron = @"^(?=.*[a-zA-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{5,}$";
+            if (!System.Text.RegularExpressions.Regex.IsMatch(password, patron))
+            {
+                MessageBox.Show("La contraseña debe tener mínimo 5 caracteres y contener letras, números y un signo.");
+                return;
+            }
+
+
+
+            // hago las validaciones para registro 
+
+            // si correo no lleva aroba error 
+            if (!correo.Contains("@") || !correo.Contains("."))
+            {
+                MessageBox.Show("El correo no es válido");
+                return;
+            }
+
+            // numero de documento tiene que ser numero 
             if (!int.TryParse(documento, out int doc))
             {
                 MessageBox.Show("El número de documento debe ser numérico");
                 return;
             }
 
+            // validacion contraseña
+            
 
             try
             {
@@ -148,6 +171,11 @@ namespace SENDAPLUS
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
+        }
+
+        private void txtcorreo_TextChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }
