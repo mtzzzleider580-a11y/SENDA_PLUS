@@ -193,8 +193,8 @@ namespace SENDAPLUS
             var resultado = MessageBox.Show("¿Desea cerrar sesión?", "Cerrar sesión", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (resultado == DialogResult.Yes)
             {
-                FormLogin frm = new FormLogin();
-                frm.Show();
+                FormLogin login = new FormLogin();
+                login.Show();
                 this.Hide();
 
                 this.Close();

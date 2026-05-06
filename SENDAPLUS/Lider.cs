@@ -28,35 +28,41 @@ namespace SENDAPLUS
 
         private void btnCrearEvento_Click(object sender, EventArgs e)
         {
-            var frm = new Crear_Evento(usuarioActual);
-            frm.Show();
+
+            Crear_Evento cra = new Crear_Evento(usuarioActual);
+            cra.Show();
             this.Hide();
         }
 
         private void btnConsultarEvento_Click(object sender, EventArgs e)
         {
-            var frm = new Crear_Evento(usuarioActual, true);
+            var frm = new Crear_Evento(usuarioActual);
             frm.Show();
-            // pedir foco al buscador
             this.Hide();
         }
 
         private void btnActualizarEventos_Click(object sender, EventArgs e)
         {
-            var frm = new Crear_Evento(usuarioActual, true);
-            frm.Show(); 
+            var frm = new Crear_Evento(usuarioActual);
+            frm.Show();
             this.Hide();
+
         }
 
         private void btnCerrarSesión_Click(object sender, EventArgs e)
         {
-            var resultado = MessageBox.Show("¿Desea cerrar sesión?", "Cerrar sesión", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult resultado = MessageBox.Show("¿Desea cerrar sesión?", "Cerrar sesión", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (resultado == DialogResult.Yes)
             {
-                FormLogin frm = new FormLogin();
-                frm.Show();
+                FormLogin login = new FormLogin();
+                login.Show();
                 this.Close();
             }
+        }
+
+        private void Lider_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

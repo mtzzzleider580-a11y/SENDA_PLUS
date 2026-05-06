@@ -16,18 +16,17 @@ namespace SENDAPLUS
         private MaterialLabel lblTipodeevento;
         private MaterialLabel lblFechayhoradeinicio;
         private MaterialLabel lblFechayhorafin;
-        private MaterialTextBox materialTextBox1;
-        private MaterialComboBox materialComboBox1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
-        private MaterialButton btnAgregarInvitados;
+        private MaterialTextBox txtnombrevento;
+        private MaterialComboBox combotipoe;
+        private System.Windows.Forms.DateTimePicker datefechaini;
+        private System.Windows.Forms.DateTimePicker datefechafin;
         private MaterialButton btnVolver;
         private MaterialLabel lblEstado;
-        private MaterialComboBox materialComboBox2;
+        private MaterialComboBox comboestado;
         private MaterialButton btnGuardarevento;
         private MaterialLabel materialLabel1;
         private MaterialTextBox txtconsultarevento;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataEVENTOSv;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn NombreEvento;
         private System.Windows.Forms.DataGridViewTextBoxColumn TipoEvento;
@@ -64,18 +63,17 @@ namespace SENDAPLUS
             this.lblTipodeevento = new MaterialSkin.Controls.MaterialLabel();
             this.lblFechayhoradeinicio = new MaterialSkin.Controls.MaterialLabel();
             this.lblFechayhorafin = new MaterialSkin.Controls.MaterialLabel();
-            this.materialTextBox1 = new MaterialSkin.Controls.MaterialTextBox();
-            this.materialComboBox1 = new MaterialSkin.Controls.MaterialComboBox();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
-            this.btnAgregarInvitados = new MaterialSkin.Controls.MaterialButton();
+            this.txtnombrevento = new MaterialSkin.Controls.MaterialTextBox();
+            this.combotipoe = new MaterialSkin.Controls.MaterialComboBox();
+            this.datefechaini = new System.Windows.Forms.DateTimePicker();
+            this.datefechafin = new System.Windows.Forms.DateTimePicker();
             this.btnVolver = new MaterialSkin.Controls.MaterialButton();
             this.lblEstado = new MaterialSkin.Controls.MaterialLabel();
-            this.materialComboBox2 = new MaterialSkin.Controls.MaterialComboBox();
+            this.comboestado = new MaterialSkin.Controls.MaterialComboBox();
             this.btnGuardarevento = new MaterialSkin.Controls.MaterialButton();
             this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
             this.txtconsultarevento = new MaterialSkin.Controls.MaterialTextBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataEVENTOSv = new System.Windows.Forms.DataGridView();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NombreEvento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TipoEvento = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -86,7 +84,8 @@ namespace SENDAPLUS
             this.btActualizarEvento = new MaterialSkin.Controls.MaterialButton();
             this.lblLugar = new MaterialSkin.Controls.MaterialLabel();
             this.txtLugar = new MaterialSkin.Controls.MaterialTextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.txtcargarevento = new MaterialSkin.Controls.MaterialButton();
+            ((System.ComponentModel.ISupportInitialize)(this.dataEVENTOSv)).BeginInit();
             this.SuspendLayout();
             // 
             // lblNombredelevento
@@ -133,7 +132,7 @@ namespace SENDAPLUS
             this.lblFechayhorafin.AutoSize = true;
             this.lblFechayhorafin.Depth = 0;
             this.lblFechayhorafin.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.lblFechayhorafin.Location = new System.Drawing.Point(25, 308);
+            this.lblFechayhorafin.Location = new System.Drawing.Point(25, 283);
             this.lblFechayhorafin.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblFechayhorafin.MouseState = MaterialSkin.MouseState.HOVER;
             this.lblFechayhorafin.Name = "lblFechayhorafin";
@@ -141,90 +140,72 @@ namespace SENDAPLUS
             this.lblFechayhorafin.TabIndex = 3;
             this.lblFechayhorafin.Text = "Fecha y hora fin";
             // 
-            // materialTextBox1
+            // txtnombrevento
             // 
-            this.materialTextBox1.AnimateReadOnly = false;
-            this.materialTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.materialTextBox1.Depth = 0;
-            this.materialTextBox1.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialTextBox1.LeadingIcon = null;
-            this.materialTextBox1.Location = new System.Drawing.Point(174, 78);
-            this.materialTextBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.materialTextBox1.MaxLength = 50;
-            this.materialTextBox1.MouseState = MaterialSkin.MouseState.OUT;
-            this.materialTextBox1.Multiline = false;
-            this.materialTextBox1.Name = "materialTextBox1";
-            this.materialTextBox1.Size = new System.Drawing.Size(179, 50);
-            this.materialTextBox1.TabIndex = 4;
-            this.materialTextBox1.Text = "";
-            this.materialTextBox1.TrailingIcon = null;
+            this.txtnombrevento.AnimateReadOnly = false;
+            this.txtnombrevento.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtnombrevento.Depth = 0;
+            this.txtnombrevento.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.txtnombrevento.LeadingIcon = null;
+            this.txtnombrevento.Location = new System.Drawing.Point(174, 78);
+            this.txtnombrevento.Margin = new System.Windows.Forms.Padding(2);
+            this.txtnombrevento.MaxLength = 50;
+            this.txtnombrevento.MouseState = MaterialSkin.MouseState.OUT;
+            this.txtnombrevento.Multiline = false;
+            this.txtnombrevento.Name = "txtnombrevento";
+            this.txtnombrevento.Size = new System.Drawing.Size(179, 50);
+            this.txtnombrevento.TabIndex = 4;
+            this.txtnombrevento.Text = "";
+            this.txtnombrevento.TrailingIcon = null;
+            this.txtnombrevento.TextChanged += new System.EventHandler(this.txtnombrevento_TextChanged);
             // 
-            // materialComboBox1
+            // combotipoe
             // 
-            this.materialComboBox1.AutoResize = false;
-            this.materialComboBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.materialComboBox1.Depth = 0;
-            this.materialComboBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.materialComboBox1.DropDownHeight = 174;
-            this.materialComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.materialComboBox1.DropDownWidth = 121;
-            this.materialComboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.materialComboBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialComboBox1.FormattingEnabled = true;
-            this.materialComboBox1.IntegralHeight = false;
-            this.materialComboBox1.ItemHeight = 43;
-            this.materialComboBox1.Items.AddRange(new object[] {
+            this.combotipoe.AutoResize = false;
+            this.combotipoe.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.combotipoe.Depth = 0;
+            this.combotipoe.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.combotipoe.DropDownHeight = 174;
+            this.combotipoe.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.combotipoe.DropDownWidth = 121;
+            this.combotipoe.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.combotipoe.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.combotipoe.FormattingEnabled = true;
+            this.combotipoe.IntegralHeight = false;
+            this.combotipoe.ItemHeight = 43;
+            this.combotipoe.Items.AddRange(new object[] {
             "Academico",
             "Cultural",
             "Deportivo"});
-            this.materialComboBox1.Location = new System.Drawing.Point(174, 159);
-            this.materialComboBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.materialComboBox1.MaxDropDownItems = 4;
-            this.materialComboBox1.MouseState = MaterialSkin.MouseState.OUT;
-            this.materialComboBox1.Name = "materialComboBox1";
-            this.materialComboBox1.Size = new System.Drawing.Size(179, 49);
-            this.materialComboBox1.StartIndex = 0;
-            this.materialComboBox1.TabIndex = 5;
+            this.combotipoe.Location = new System.Drawing.Point(174, 159);
+            this.combotipoe.Margin = new System.Windows.Forms.Padding(2);
+            this.combotipoe.MaxDropDownItems = 4;
+            this.combotipoe.MouseState = MaterialSkin.MouseState.OUT;
+            this.combotipoe.Name = "combotipoe";
+            this.combotipoe.Size = new System.Drawing.Size(179, 49);
+            this.combotipoe.StartIndex = 0;
+            this.combotipoe.TabIndex = 5;
+            this.combotipoe.SelectedIndexChanged += new System.EventHandler(this.materialComboBox1_SelectedIndexChanged_1);
             // 
-            // dateTimePicker1
+            // datefechaini
             // 
-            this.dateTimePicker1.CustomFormat = "dd/MM/yyyy HH:mm";
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(192, 250);
-            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(2);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(141, 20);
-            this.dateTimePicker1.TabIndex = 6;
+            this.datefechaini.CustomFormat = "dd/MM/yyyy HH:mm";
+            this.datefechaini.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.datefechaini.Location = new System.Drawing.Point(192, 250);
+            this.datefechaini.Margin = new System.Windows.Forms.Padding(2);
+            this.datefechaini.Name = "datefechaini";
+            this.datefechaini.Size = new System.Drawing.Size(141, 20);
+            this.datefechaini.TabIndex = 6;
             // 
-            // dateTimePicker2
+            // datefechafin
             // 
-            this.dateTimePicker2.CustomFormat = "dd/MM/yyyy HH:mm";
-            this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker2.Location = new System.Drawing.Point(192, 307);
-            this.dateTimePicker2.Margin = new System.Windows.Forms.Padding(2);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(141, 20);
-            this.dateTimePicker2.TabIndex = 7;
-            // 
-            // btnAgregarInvitados
-            // 
-            this.btnAgregarInvitados.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnAgregarInvitados.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.btnAgregarInvitados.Depth = 0;
-            this.btnAgregarInvitados.HighEmphasis = true;
-            this.btnAgregarInvitados.Icon = null;
-            this.btnAgregarInvitados.Location = new System.Drawing.Point(371, 463);
-            this.btnAgregarInvitados.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnAgregarInvitados.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnAgregarInvitados.Name = "btnAgregarInvitados";
-            this.btnAgregarInvitados.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.btnAgregarInvitados.Size = new System.Drawing.Size(171, 36);
-            this.btnAgregarInvitados.TabIndex = 8;
-            this.btnAgregarInvitados.Text = " Agregar Invitados";
-            this.btnAgregarInvitados.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnAgregarInvitados.UseAccentColor = false;
-            this.btnAgregarInvitados.UseVisualStyleBackColor = true;
-            this.btnAgregarInvitados.Click += new System.EventHandler(this.btnAgregarInvitados_Click);
+            this.datefechafin.CustomFormat = "dd/MM/yyyy HH:mm";
+            this.datefechafin.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.datefechafin.Location = new System.Drawing.Point(192, 283);
+            this.datefechafin.Margin = new System.Windows.Forms.Padding(2);
+            this.datefechafin.Name = "datefechafin";
+            this.datefechafin.Size = new System.Drawing.Size(141, 20);
+            this.datefechafin.TabIndex = 7;
             // 
             // btnVolver
             // 
@@ -233,7 +214,7 @@ namespace SENDAPLUS
             this.btnVolver.Depth = 0;
             this.btnVolver.HighEmphasis = true;
             this.btnVolver.Icon = null;
-            this.btnVolver.Location = new System.Drawing.Point(869, 469);
+            this.btnVolver.Location = new System.Drawing.Point(996, 469);
             this.btnVolver.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnVolver.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnVolver.Name = "btnVolver";
@@ -251,7 +232,7 @@ namespace SENDAPLUS
             this.lblEstado.AutoSize = true;
             this.lblEstado.Depth = 0;
             this.lblEstado.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.lblEstado.Location = new System.Drawing.Point(20, 421);
+            this.lblEstado.Location = new System.Drawing.Point(20, 410);
             this.lblEstado.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblEstado.MouseState = MaterialSkin.MouseState.HOVER;
             this.lblEstado.Name = "lblEstado";
@@ -259,31 +240,31 @@ namespace SENDAPLUS
             this.lblEstado.TabIndex = 18;
             this.lblEstado.Text = "Estado";
             // 
-            // materialComboBox2
+            // comboestado
             // 
-            this.materialComboBox2.AutoResize = false;
-            this.materialComboBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.materialComboBox2.Depth = 0;
-            this.materialComboBox2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.materialComboBox2.DropDownHeight = 174;
-            this.materialComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.materialComboBox2.DropDownWidth = 121;
-            this.materialComboBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.materialComboBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialComboBox2.FormattingEnabled = true;
-            this.materialComboBox2.IntegralHeight = false;
-            this.materialComboBox2.ItemHeight = 43;
-            this.materialComboBox2.Items.AddRange(new object[] {
+            this.comboestado.AutoResize = false;
+            this.comboestado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.comboestado.Depth = 0;
+            this.comboestado.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboestado.DropDownHeight = 174;
+            this.comboestado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboestado.DropDownWidth = 121;
+            this.comboestado.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.comboestado.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.comboestado.FormattingEnabled = true;
+            this.comboestado.IntegralHeight = false;
+            this.comboestado.ItemHeight = 43;
+            this.comboestado.Items.AddRange(new object[] {
             "Activo",
             "Desactivado"});
-            this.materialComboBox2.Location = new System.Drawing.Point(192, 401);
-            this.materialComboBox2.Margin = new System.Windows.Forms.Padding(2);
-            this.materialComboBox2.MaxDropDownItems = 4;
-            this.materialComboBox2.MouseState = MaterialSkin.MouseState.OUT;
-            this.materialComboBox2.Name = "materialComboBox2";
-            this.materialComboBox2.Size = new System.Drawing.Size(141, 49);
-            this.materialComboBox2.StartIndex = 0;
-            this.materialComboBox2.TabIndex = 19;
+            this.comboestado.Location = new System.Drawing.Point(192, 391);
+            this.comboestado.Margin = new System.Windows.Forms.Padding(2);
+            this.comboestado.MaxDropDownItems = 4;
+            this.comboestado.MouseState = MaterialSkin.MouseState.OUT;
+            this.comboestado.Name = "comboestado";
+            this.comboestado.Size = new System.Drawing.Size(141, 49);
+            this.comboestado.StartIndex = 0;
+            this.comboestado.TabIndex = 19;
             // 
             // btnGuardarevento
             // 
@@ -335,11 +316,12 @@ namespace SENDAPLUS
             this.txtconsultarevento.TabIndex = 22;
             this.txtconsultarevento.Text = "";
             this.txtconsultarevento.TrailingIcon = null;
+            this.txtconsultarevento.TextChanged += new System.EventHandler(this.txtconsultarevento_TextChanged);
             // 
-            // dataGridView1
+            // dataEVENTOSv
             // 
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.BackgroundColor = System.Drawing.Color.Snow;
+            this.dataEVENTOSv.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataEVENTOSv.BackgroundColor = System.Drawing.Color.Snow;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -347,9 +329,9 @@ namespace SENDAPLUS
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataEVENTOSv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataEVENTOSv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataEVENTOSv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ID,
             this.NombreEvento,
             this.TipoEvento,
@@ -357,14 +339,16 @@ namespace SENDAPLUS
             this.Hora,
             this.Lugar,
             this.Estado});
-            this.dataGridView1.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.dataGridView1.Location = new System.Drawing.Point(385, 124);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 62;
-            this.dataGridView1.RowTemplate.Height = 28;
-            this.dataGridView1.Size = new System.Drawing.Size(687, 286);
-            this.dataGridView1.TabIndex = 21;
+            this.dataEVENTOSv.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.dataEVENTOSv.Location = new System.Drawing.Point(385, 124);
+            this.dataEVENTOSv.Margin = new System.Windows.Forms.Padding(2);
+            this.dataEVENTOSv.Name = "dataEVENTOSv";
+            this.dataEVENTOSv.RowHeadersWidth = 62;
+            this.dataEVENTOSv.RowTemplate.Height = 28;
+            this.dataEVENTOSv.Size = new System.Drawing.Size(687, 286);
+            this.dataEVENTOSv.TabIndex = 21;
+            this.dataEVENTOSv.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataEVENTOSv_CellClick);
+            this.dataEVENTOSv.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // ID
             // 
@@ -415,7 +399,7 @@ namespace SENDAPLUS
             this.btActualizarEvento.Depth = 0;
             this.btActualizarEvento.HighEmphasis = true;
             this.btActualizarEvento.Icon = null;
-            this.btActualizarEvento.Location = new System.Drawing.Point(630, 463);
+            this.btActualizarEvento.Location = new System.Drawing.Point(385, 469);
             this.btActualizarEvento.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btActualizarEvento.MouseState = MaterialSkin.MouseState.HOVER;
             this.btActualizarEvento.Name = "btActualizarEvento";
@@ -433,7 +417,7 @@ namespace SENDAPLUS
             this.lblLugar.AutoSize = true;
             this.lblLugar.Depth = 0;
             this.lblLugar.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.lblLugar.Location = new System.Drawing.Point(25, 371);
+            this.lblLugar.Location = new System.Drawing.Point(20, 335);
             this.lblLugar.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblLugar.MouseState = MaterialSkin.MouseState.HOVER;
             this.lblLugar.Name = "lblLugar";
@@ -448,7 +432,7 @@ namespace SENDAPLUS
             this.txtLugar.Depth = 0;
             this.txtLugar.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.txtLugar.LeadingIcon = null;
-            this.txtLugar.Location = new System.Drawing.Point(192, 350);
+            this.txtLugar.Location = new System.Drawing.Point(192, 318);
             this.txtLugar.Margin = new System.Windows.Forms.Padding(2);
             this.txtLugar.MaxLength = 50;
             this.txtLugar.MouseState = MaterialSkin.MouseState.OUT;
@@ -460,27 +444,47 @@ namespace SENDAPLUS
             this.txtLugar.TrailingIcon = null;
             this.txtLugar.TextChanged += new System.EventHandler(this.txtLugar_TextChanged);
             // 
+            // txtcargarevento
+            // 
+            this.txtcargarevento.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.txtcargarevento.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.txtcargarevento.Depth = 0;
+            this.txtcargarevento.HighEmphasis = true;
+            this.txtcargarevento.Icon = null;
+            this.txtcargarevento.Location = new System.Drawing.Point(582, 469);
+            this.txtcargarevento.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.txtcargarevento.MouseState = MaterialSkin.MouseState.HOVER;
+            this.txtcargarevento.Name = "txtcargarevento";
+            this.txtcargarevento.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.txtcargarevento.Size = new System.Drawing.Size(158, 36);
+            this.txtcargarevento.TabIndex = 27;
+            this.txtcargarevento.Text = "Cargar Evento";
+            this.txtcargarevento.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.txtcargarevento.UseAccentColor = false;
+            this.txtcargarevento.UseVisualStyleBackColor = true;
+            this.txtcargarevento.Click += new System.EventHandler(this.txtcargarevento_Click);
+            // 
             // Crear_Evento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(1094, 530);
+            this.Controls.Add(this.txtcargarevento);
             this.Controls.Add(this.txtLugar);
             this.Controls.Add(this.lblLugar);
             this.Controls.Add(this.btActualizarEvento);
             this.Controls.Add(this.materialLabel1);
             this.Controls.Add(this.txtconsultarevento);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dataEVENTOSv);
             this.Controls.Add(this.btnGuardarevento);
-            this.Controls.Add(this.materialComboBox2);
+            this.Controls.Add(this.comboestado);
             this.Controls.Add(this.lblEstado);
             this.Controls.Add(this.btnVolver);
-            this.Controls.Add(this.btnAgregarInvitados);
-            this.Controls.Add(this.dateTimePicker2);
-            this.Controls.Add(this.dateTimePicker1);
-            this.Controls.Add(this.materialComboBox1);
-            this.Controls.Add(this.materialTextBox1);
+            this.Controls.Add(this.datefechafin);
+            this.Controls.Add(this.datefechaini);
+            this.Controls.Add(this.combotipoe);
+            this.Controls.Add(this.txtnombrevento);
             this.Controls.Add(this.lblFechayhorafin);
             this.Controls.Add(this.lblFechayhoradeinicio);
             this.Controls.Add(this.lblTipodeevento);
@@ -489,12 +493,14 @@ namespace SENDAPLUS
             this.Name = "Crear_Evento";
             this.Padding = new System.Windows.Forms.Padding(2, 42, 2, 2);
             this.Text = "CREAR EVENTO";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataEVENTOSv)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
+
+        private MaterialButton txtcargarevento;
     }
 }

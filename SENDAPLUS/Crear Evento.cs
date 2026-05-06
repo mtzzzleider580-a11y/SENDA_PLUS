@@ -13,440 +13,136 @@ namespace SENDAPLUS
 {
     public partial class Crear_Evento : MaterialForm
     {
-        private readonly IMongoCollection<BsonDocument> _eventosCollection;
-        private Usuarios _lider;
-        private ObjectId _ultimoEventoId = ObjectId.Empty;
-        private bool _modoConsulta = false;
-        private bool _modoEdicion = false;
-        private ObjectId _eventoEditId = ObjectId.Empty;
-        private bool _isPopulating = false;
-        private string _lblEstadoOriginalText;
+        private Usuarios usuarioActual;
+        ConexionMongo.Conectar conexion = new ConexionMongo.Conectar();
 
-        public Crear_Evento()
+        public Crear_Evento(Usuarios usuario)
         {
-            InitializeComponent();
-            var msm = MaterialSkinManager.Instance;
-            msm.AddFormToManage(this);
-            msm.Theme = MaterialSkinManager.Themes.DARK;
-            msm.ColorScheme = new ColorScheme(Primary.Green600, Primary.Green700, Primary.Green200, Accent.LightGreen200, TextShade.WHITE);
+            InitializeComponent(); // <--- SIN ESTA LÍNEA LA VENTANA SALE VACÍA
+            this.usuarioActual = usuario;
+            CargarEventos(); // Para que la tabla se llene apenas abra
 
-            var client = new MongoClient("mongodb://localhost:27017");
-            var db = client.GetDatabase("SENDAPLUS");
-            _eventosCollection = db.GetCollection<BsonDocument>("Evento");
+            // MaterialSkin aqui se configura el tema y los colores de el formulario
+            var materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.AddFormToManage(this);
 
-            Load += Crear_Evento_Load;
+            materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
+
+            materialSkinManager.ColorScheme = new ColorScheme(
+                Primary.Green600,
+                Primary.Green700,
+                Primary.Green200,
+                Accent.LightGreen200,
+                TextShade.BLACK
+            );
         }
+       
 
-        public Crear_Evento(Usuarios lider) : this()
+
+
+
+
+        private void btActualizarEvento_Click(object sender, EventArgs e)
         {
-            _lider = lider ?? throw new ArgumentNullException(nameof(lider));
-            Text = $"CREAR EVENTO - {_lider.Nombre}";
-        }
-
-        public Crear_Evento(Usuarios lider, bool modoConsulta) : this(lider)
-        {
-            _modoConsulta = modoConsulta;
-            if (_modoConsulta) SetConsultaMode();
-        }
-
-        private async void Crear_Evento_Load(object sender, EventArgs e)
-        {
-            _lblEstadoOriginalText = lblEstado?.Text ?? "Estado";
-            txtconsultarevento.Visible = false;
-            materialLabel1.Visible = false;
-
-            // Sólo prevenir fechas pasadas en modo creación (no en consulta/edición)
-            if (!_modoConsulta)
+            // 1. PRIMERO: Verificar si seleccionó algo de la tabla
+            if (string.IsNullOrEmpty(idSeleccionado))
             {
-                dateTimePicker1.MinDate = DateTime.Now;
-                dateTimePicker2.MinDate = DateTime.Now;
-                dateTimePicker1.Value = DateTime.Now.AddHours(1);
-                dateTimePicker2.Value = DateTime.Now.AddHours(2);
+                MessageBox.Show("Por favor, selecciona un evento de la tabla para ver sus datos y poder actualizar.");
+                return; // Se detiene aquí si no hay selección
             }
 
-            AttachHandlers();
-
-            if (!_modoConsulta)
+            // 2. SEGUNDO: Verificar si dejó campos vacíos después de editar
+            if (string.IsNullOrWhiteSpace(txtnombrevento.Text) || string.IsNullOrWhiteSpace(txtLugar.Text))
             {
-                dateTimePicker1.Enabled = false;
-                dateTimePicker2.Enabled = false;
-                btnAgregarInvitados.Visible = false;
-                btnGuardarevento.Enabled = false;
-            }
-            else
-            {
-                materialLabel1.Text = "Ingresa el nombre del evento:";
-                materialLabel1.Visible = true;
-                txtconsultarevento.Visible = true;
-                txtconsultarevento.TextChanged -= Txtconsultarevento_TextChangedAsync;
-                txtconsultarevento.TextChanged += Txtconsultarevento_TextChangedAsync;
-            }
-
-            dataGridView1.CellDoubleClick -= DataGridView1_CellDoubleClick;
-            dataGridView1.CellDoubleClick += DataGridView1_CellDoubleClick;
-
-            await CargarEventosEnGridAsync();
-        }
-
-        private void AttachHandlers()
-        {
-            materialTextBox1.TextChanged -= MaterialTextBox1_TextChanged;
-            materialTextBox1.TextChanged += MaterialTextBox1_TextChanged;
-            materialComboBox1.SelectedIndexChanged -= MaterialComboBox1_SelectedIndexChanged;
-            materialComboBox1.SelectedIndexChanged += MaterialComboBox1_SelectedIndexChanged;
-            dateTimePicker1.ValueChanged -= DateTimePicker1_ValueChanged;
-            dateTimePicker1.ValueChanged += DateTimePicker1_ValueChanged;
-            dateTimePicker2.ValueChanged -= DateTimePicker2_ValueChanged;
-            dateTimePicker2.ValueChanged += DateTimePicker2_ValueChanged;
-        }
-
-        private void MaterialTextBox1_TextChanged(object s, EventArgs e) => ValidateFormState();
-        private void MaterialComboBox1_SelectedIndexChanged(object s, EventArgs e) => ValidateFormState();
-        private void DateTimePicker1_ValueChanged(object s, EventArgs e) => _ = DateTimePicker_ValueChangedAsync();
-        private void DateTimePicker2_ValueChanged(object s, EventArgs e) => ValidateDateTime();
-
-        private void SetConsultaMode()
-        {
-            _modoConsulta = true;
-            lblNombredelevento.Visible = false; materialTextBox1.Visible = false;
-            lblTipodeevento.Visible = false; materialComboBox1.Visible = false;
-            lblFechayhoradeinicio.Visible = false; dateTimePicker1.Visible = false;
-            lblFechayhorafin.Visible = false; dateTimePicker2.Visible = false;
-            lblEstado.Visible = true; materialComboBox2.Visible = false;
-            txtLugar.Visible = false;
-            materialComboBox2.Visible = false;
-            txtconsultarevento.Visible = true; materialLabel1.Visible = true;
-            btnGuardarevento.Visible = false; btnAgregarInvitados.Visible = false;
-            dataGridView1.Visible = true; btActualizarEvento.Visible = true;
-            Text = "CONSULTAR EVENTOS";
-        }
-
-        private void ValidateFormState()
-        {
-            if (_isPopulating) return;
-            bool tieneNombre = !string.IsNullOrWhiteSpace(materialTextBox1.Text);
-            bool tieneTipo = materialComboBox1.SelectedItem != null;
-            dateTimePicker1.Enabled = dateTimePicker2.Enabled = tieneNombre && tieneTipo;
-            btnGuardarevento.Enabled = tieneNombre && tieneTipo && dateTimePicker1.Enabled && !IsFechaInicioEnPasado();
-        }
-
-        private void ValidateDateTime()
-        {
-            if (_isPopulating) return;
-            if (dateTimePicker2.Value <= dateTimePicker1.Value) dateTimePicker2.Value = dateTimePicker1.Value.AddHours(1);
-            ValidateFormState();
-        }
-
-        private bool IsFechaInicioEnPasado() => dateTimePicker1.Value < DateTime.Now;
-
-        private async Task DateTimePicker_ValueChangedAsync()
-        {
-            if (_isPopulating) return;
-            if (IsFechaInicioEnPasado())
-            {
-                MessageBox.Show("La fecha y hora de inicio no pueden estar en el pasado.");
-                dateTimePicker1.Value = DateTime.Now.AddHours(1);
+                MessageBox.Show("No puedes dejar datos vacíos .");
                 return;
             }
-            ValidateDateTime();
-            await ValidarConflictoFechaHoraAsync();
-        }
 
-        private FilterDefinition<BsonDocument> BuildFechaHoraFilter(DateTime fecha, string hora, bool excludeCurrent = false)
-        {
-            var f = Builders<BsonDocument>.Filter.And(
-                Builders<BsonDocument>.Filter.Eq("fecha", fecha),
-                Builders<BsonDocument>.Filter.Eq("hora", hora),
-                Builders<BsonDocument>.Filter.Ne("estado", "desactivado")
-            );
-            if (excludeCurrent && _modoEdicion && _eventoEditId != ObjectId.Empty)
-                f = Builders<BsonDocument>.Filter.And(f, Builders<BsonDocument>.Filter.Ne("_id", _eventoEditId));
-            return f;
-        }
-
-        private async Task<bool> ConflictoFechaHoraExisteAsync(DateTime fecha, string hora, bool excludeCurrent = false)
-        {
-            var filtro = BuildFechaHoraFilter(fecha, hora, excludeCurrent);
-            var existe = await _eventosCollection.Find(filtro).FirstOrDefaultAsync();
-            return existe != null;
-        }
-
-        private async Task ValidarConflictoFechaHoraAsync()
-        {
-            if (_isPopulating) return;
-            var fecha = dateTimePicker1.Value.Date;
-            var hora = dateTimePicker1.Value.ToString("HH:mm");
-            var existe = await ConflictoFechaHoraExisteAsync(fecha, hora, excludeCurrent: _modoEdicion);
-            if (existe)
-            {
-                lblEstado.Text = "Conflicto: ya existe un evento en esa fecha y hora.";
-                lblEstado.ForeColor = Color.Red; btnGuardarevento.Enabled = false;
-            }
-            else
-            {
-                lblEstado.Text = _lblEstadoOriginalText ?? "Estado";
-                lblEstado.ForeColor = Color.Black;
-                ValidateFormState();
-            }
-        }
-
-        private async Task<ObjectId?> GuardarEventoAsync()
-        {
-            if (_lider == null) { MessageBox.Show("Inicia sesión como líder para crear eventos."); return null; }
-            string nombre = materialTextBox1.Text?.Trim();
-            string tipo = materialComboBox1.SelectedItem?.ToString();
-            DateTime inicio = dateTimePicker1.Value;
-            DateTime fin = dateTimePicker2.Value;
-            string lugar = txtLugar.Text?.Trim() ?? "";
-            string estado = materialComboBox2.SelectedItem?.ToString() ?? "activo";
-
-            if (string.IsNullOrEmpty(nombre) || string.IsNullOrEmpty(tipo)) { MessageBox.Show("Completa nombre y tipo antes de guardar."); return null; }
-            if (inicio < DateTime.Now && !_modoEdicion) { MessageBox.Show("La fecha y hora de inicio no pueden estar en el pasado."); return null; }
-            if (fin <= inicio) { MessageBox.Show("La fecha y hora de fin debe ser posterior a la fecha y hora de inicio."); return null; }
-
-            var fecha = inicio.Date;
-            var hora = inicio.ToString("HH:mm");
-
-            // Conflicto día del líder
-            var filtroDiaLider = Builders<BsonDocument>.Filter.And(
-                Builders<BsonDocument>.Filter.Eq("liderCorreo", _lider.Correo),
-                Builders<BsonDocument>.Filter.Gte("fecha", fecha),
-                Builders<BsonDocument>.Filter.Lt("fecha", fecha.AddDays(1)),
-                Builders<BsonDocument>.Filter.Ne("estado", "desactivado")
-            );
-            if (_modoEdicion && _eventoEditId != ObjectId.Empty)
-                filtroDiaLider = Builders<BsonDocument>.Filter.And(filtroDiaLider, Builders<BsonDocument>.Filter.Ne("_id", _eventoEditId));
-
-            if (await _eventosCollection.Find(filtroDiaLider).FirstOrDefaultAsync() != null)
-            {
-                MessageBox.Show("Ya existe un evento programado para este líder en el mismo día.");
-                return null;
-            }
-
-            if (await ConflictoFechaHoraExisteAsync(fecha, hora, excludeCurrent: _modoEdicion))
-            {
-                MessageBox.Show("Ya existe un evento en la misma fecha y hora.");
-                return null;
-            }
-
-            if (_modoEdicion && _eventoEditId != ObjectId.Empty)
-            {
-                var filtroId = Builders<BsonDocument>.Filter.Eq("_id", _eventoEditId);
-                var update = Builders<BsonDocument>.Update
-                    .Set("nombreEvento", nombre)
-                    .Set("tipoEvento", tipo)
-                    .Set("fecha", fecha)
-                    .Set("hora", hora)
-                    .Set("lugar", lugar)
-                    .Set("estado", estado.ToLower())
-                    .Set("liderCorreo", _lider.Correo);
-
-                var result = await _eventosCollection.UpdateOneAsync(filtroId, update);
-                if (result.ModifiedCount > 0) MessageBox.Show("Evento actualizado correctamente."); else MessageBox.Show("No se realizó ninguna modificación.");
-                _modoEdicion = false; _eventoEditId = ObjectId.Empty; btnGuardarevento.Text = "Guardar evento";
-            }
-            else
-            {
-                var id = ObjectId.GenerateNewId();
-                var documento = new BsonDocument
-                {
-                    { "_id", id },
-                    { "nombreEvento", nombre },
-                    { "tipoEvento", tipo },
-                    { "fecha", fecha },
-                    { "hora", hora },
-                    { "lugar", lugar },
-                    { "estado", estado.ToLower() },
-                    { "liderCorreo", _lider.Correo }
-                };
-                await _eventosCollection.InsertOneAsync(documento);
-                MessageBox.Show("Evento guardado correctamente.");
-                _ultimoEventoId = id;
-            }
-
-            await CargarEventosEnGridAsync();
-            return _ultimoEventoId != ObjectId.Empty ? (ObjectId?)_ultimoEventoId : null;
-        }
-
-        private async Task CargarEventosEnGridAsync(FilterDefinition<BsonDocument> filtro = null)
-        {
-            var f = filtro ?? Builders<BsonDocument>.Filter.Empty;
-            if (dataGridView1.InvokeRequired) { dataGridView1.BeginInvoke(new Action(async () => await CargarEventosEnGridAsync(f))); return; }
-
-            int intentos = 2;
-            while (intentos-- > 0)
-            {
-                try
-                {
-                    dataGridView1.SuspendLayout();
-                    var modoPrevio = dataGridView1.AutoSizeColumnsMode;
-                    dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
-                    dataGridView1.Rows.Clear();
-                    var lista = await _eventosCollection.Find(f).ToListAsync();
-                    foreach (var e in lista)
-                    {
-                        var id = e.Contains("_id") ? e["_id"].ToString() : "";
-                        var nombre = e.Contains("nombreEvento") ? e["nombreEvento"].AsString : "";
-                        var tipo = e.Contains("tipoEvento") ? e["tipoEvento"].AsString : "";
-                        var fecha = e.Contains("fecha") ? e["fecha"].ToLocalTime().ToString("dd/MM/yyyy") : "";
-                        var hora = e.Contains("hora") ? e["hora"].AsString : "";
-                        var lugar = e.Contains("lugar") ? e["lugar"].AsString : "";
-                        var estado = e.Contains("estado") ? e["estado"].AsString : "";
-                        dataGridView1.Rows.Add(id, nombre, tipo, fecha, hora, lugar, estado);
-                    }
-                    dataGridView1.AutoSizeColumnsMode = modoPrevio;
-                    dataGridView1.ResumeLayout();
-                    break;
-                }
-                catch (InvalidOperationException)
-                {
-                    if (intentos <= 0) throw;
-                    await Task.Delay(50);
-                }
-                finally { try { if (!dataGridView1.IsDisposed) dataGridView1.ResumeLayout(); } catch { } }
-            }
-
-            dataGridView1.DefaultCellStyle.ForeColor = Color.Black;
-            dataGridView1.DefaultCellStyle.BackColor = Color.White;
-            dataGridView1.DefaultCellStyle.SelectionForeColor = Color.Black;
-        }
-
-        // Helper seguro para asignar Value incluso si MinDate impediría la asignación
-        private void SetPickerValueSafely(DateTimePicker picker, DateTime value)
-        {
-            var prevMin = picker.MinDate;
+            // 3. Si todo está bien, procede a guardar los cambios en MongoDB
             try
             {
-                picker.MinDate = DateTimePicker.MinimumDateTime;
-                if (value < DateTimePicker.MinimumDateTime) value = DateTimePicker.MinimumDateTime;
-                if (value > DateTimePicker.MaximumDateTime) value = DateTimePicker.MaximumDateTime;
-                picker.Value = value;
+                var eventoEditado = new Evento
+                {
+                    Id = idSeleccionado,
+                    NombreEvento = txtnombrevento.Text,
+                    TipoEvento = combotipoe.Text,
+                    Fecha = datefechaini.Value.Date,
+                    Hora = datefechafin.Value.ToString("HH:mm"),
+                    Lugar = txtLugar.Text,
+                    Estado = comboestado.Text
+                };
+
+                var filtro = Builders<Evento>.Filter.Eq(x => x.Id, idSeleccionado);
+                conexion.Eventos().ReplaceOne(filtro, eventoEditado);
+
+                MessageBox.Show("Evento actualizado correctamente");
+                CargarEventos();
             }
-            finally { picker.MinDate = prevMin; }
-        }
-
-        // Cargar seleccionado para edición (usado por botón actualizar)
-        private async void btActualizarEvento_Click(object sender, EventArgs e)
-        {
-            if (dataGridView1.SelectedRows == null || dataGridView1.SelectedRows.Count == 0) { MessageBox.Show("Selecciona un evento en la tabla para editar."); return; }
-            var idCell = dataGridView1.SelectedRows[0].Cells["ID"].Value;
-            if (idCell == null || !ObjectId.TryParse(idCell.ToString(), out ObjectId eventoId)) { MessageBox.Show("ID de evento inválido o no disponible."); return; }
-
-            var documento = await _eventosCollection.Find(Builders<BsonDocument>.Filter.Eq("_id", eventoId)).FirstOrDefaultAsync();
-            if (documento == null) { MessageBox.Show("Evento no encontrado en la base de datos."); return; }
-
-            _isPopulating = true;
-            PopulateControls(documento);
-            _modoEdicion = true;
-            _eventoEditId = eventoId;
-
-            lblNombredelevento.Visible = materialTextBox1.Visible = true;
-            lblTipodeevento.Visible = materialComboBox1.Visible = true;
-            lblFechayhoradeinicio.Visible = dateTimePicker1.Visible = true;
-            lblFechayhorafin.Visible = dateTimePicker2.Visible = true;
-            lblEstado.Visible = materialComboBox2.Visible = txtLugar.Visible = true;
-            btnGuardarevento.Visible = true; btnGuardarevento.Text = "Actualizar evento"; btnAgregarInvitados.Visible = false;
-
-            _isPopulating = false;
-        }
-
-        // 
-        private void PopulateControls(BsonDocument doc)
-        {
-            // 1. Campos de texto básicos (Uso de BsonDocument.GetValue con valor por defecto)
-            materialTextBox1.Text = doc.GetValue("nombreEvento", "").AsString;
-            txtLugar.Text = doc.GetValue("lugar", "").AsString;
-
-            // 2. ComboBoxes (Reemplaza el 'for' por FindStringExact)
-            materialComboBox1.SelectedIndex = materialComboBox1.FindStringExact(doc.GetValue("tipoEvento", "").AsString);
-            materialComboBox2.SelectedIndex = materialComboBox2.FindStringExact(doc.GetValue("estado", "activo").AsString);
-
-            // 3. Fecha y Hora (Lógica simplificada)
-            DateTime fecha = doc.GetValue("fecha", DateTime.Now).ToLocalTime().Date;
-            string horaStr = doc.GetValue("hora", "09:00").AsString;
-
-            if (!TimeSpan.TryParse(horaStr, out TimeSpan ts)) ts = TimeSpan.FromHours(9);
-
-            // 4. Asignación a Pickers
-            dateTimePicker1.Value = fecha.Add(ts);
-            dateTimePicker2.Value = dateTimePicker1.Value.AddHours(1);
-        }
-
-        private async void Txtconsultarevento_TextChangedAsync(object s, EventArgs e) => await BuscarEventosPorNombreAsync(txtconsultarevento.Text.Trim());
-        private async Task BuscarEventosPorNombreAsync(string texto)
-        {
-            if (string.IsNullOrWhiteSpace(texto)) { await CargarEventosEnGridAsync(); return; }
-            var regex = new BsonRegularExpression(texto, "i");
-            var filtro = Builders<BsonDocument>.Filter.Regex("nombreEvento", regex);
-            await CargarEventosEnGridAsync(filtro);
-        }
-
-        private async void btnAgregarInvitados_Click(object sender, EventArgs e)
-        {
-            if (_ultimoEventoId == ObjectId.Empty)
+            catch (Exception ex)
             {
-                var id = await GuardarEventoAsync();
-                if (id == null) return;
+                MessageBox.Show("Error: " + ex.Message);
             }
 
-            DateTime inicio = dateTimePicker1.Value;
-            DateTime fecha = inicio.Date;
-            string hora = inicio.ToString("HH:mm");
 
-            var frm = new Agrgar_invitados(_ultimoEventoId, fecha, hora);
-            frm.ShowDialog();
-            await CargarEventosEnGridAsync();
+
         }
 
+     
         private void btnVolver_Click(object sender, EventArgs e)
         {
+            FormLogin login = new FormLogin();
+            login.Show(); // Muestra la ventana anterior
+            this.Hide();
+        }
+
+
+        private void DataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+
+        // creamos un evento 
+        private void btnGuardarevento_Click(object sender, EventArgs e)
+        {
+
+
+            // 1. EL BLOQUEO: Si el nombre o el lugar están vacíos, no sigue.
+            if (string.IsNullOrWhiteSpace(txtnombrevento.Text) || string.IsNullOrWhiteSpace(txtLugar.Text))
+            {
+                MessageBox.Show("Faltan campos por llenar .");
+                return; // Este 'return' es el que evita que se cree el evento
+            }
+
+            // 2. Si pasó la validación, entonces sí creamos el objeto
+            var nuevoEvento = new Evento
+            {
+                NombreEvento = txtnombrevento.Text,
+                TipoEvento = combotipoe.Text,
+                Fecha = datefechaini.Value.Date,
+                Hora = datefechafin.Value.ToString("HH:mm"),
+                Lugar = txtLugar.Text,
+                Estado = comboestado.Text
+            };
+
+            // 3. Guardar en MongoDB
             try
             {
-                if (_lider != null) new Lider(_lider).Show(); else new FormLogin().Show();
+                conexion.Eventos().InsertOne(nuevoEvento);
+                MessageBox.Show("Evento registrado correctamente");
+
+                CargarEventos(); // Refrescar la tabla
+
+                // 4. Limpiar los cuadros para un nuevo registro
+                txtnombrevento.Clear();
+                txtLugar.Clear();
             }
-            finally { Close(); }
-        }
-
-        // Doble clic en la grilla muestra detalles (modo consulta)
-        private async void DataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0) return;
-
-            // 1. Obtener ID de forma limpia
-            var idCellValue = dataGridView1.Rows[e.RowIndex].Cells["ID"].Value?.ToString();
-            if (!ObjectId.TryParse(idCellValue, out ObjectId eventoId))
+            catch (Exception ex)
             {
-                MessageBox.Show("ID de evento inválido.");
-                return;
+                MessageBox.Show("Error al guardar: " + ex.Message);
             }
 
-            // 2. Buscar en la base de datos
-            var doc = await _eventosCollection.Find(Builders<BsonDocument>.Filter.Eq("_id", eventoId)).FirstOrDefaultAsync();
-            if (doc == null)
-            {
-                MessageBox.Show("Evento no encontrado.");
-                return;
-            }
 
-            // 3. Extraer datos con valores por defecto (Sin IFs innecesarios)
-            string nombre = doc.GetValue("nombreEvento", "").AsString;
-            string tipo = doc.GetValue("tipoEvento", "").AsString;
-            string fecha = doc.GetValue("fecha", DateTime.Now).ToLocalTime().ToString("dd/MM/yyyy");
-            string hora = doc.GetValue("hora", "").AsString;
-            string lugar = doc.GetValue("lugar", "").AsString;
-            string estado = doc.GetValue("estado", "").AsString;
-            string lider = doc.GetValue("liderCorreo", "").AsString;
-
-            // 4. Mostrar mensaje
-            string texto = $"Nombre: {nombre}\nTipo: {tipo}\nFecha: {fecha}\nHora: {hora}\nLugar: {lugar}\nEstado: {estado}\nLíder: {lider}";
-            MessageBox.Show(texto, "Detalles del evento", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private async void btnGuardarevento_Click(object sender, EventArgs e)
-        {
-            await GuardarEventoAsync();
-
-        
 
         }
 
@@ -454,5 +150,109 @@ namespace SENDAPLUS
         {
 
         }
+
+        string idSeleccionado = "";
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void materialComboBox1_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
+        }
+        // aca mostramos eventos 
+        private void txtcargarevento_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // 1. Obtenemos todos los eventos de tu colección
+                var listaEventos = conexion.Eventos().Find(_ => true).ToList();
+
+                // 2. Los mostramos en el DataGridView
+                // Asegúrate de que el nombre del control sea el correcto (ej. dgvEventos)
+                dataEVENTOSv.DataSource = listaEventos;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar la tabla: " + ex.Message);
+            }
+        }
+
+
+
+        private void txtnombrevento_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtconsultarevento_TextChanged(object sender, EventArgs e)
+        {
+            string filtro = txtconsultarevento.Text.ToLower();
+
+            // Buscamos en MongoDB los eventos que contengan lo que el usuario escribe
+            // Usamos 'i' para que no importe si es mayúscula o minúscula
+            var eventosFiltrados = conexion.Eventos()
+                .Find(x => x.NombreEvento.ToLower().Contains(filtro))
+                .ToList();
+
+            // Actualizamos la tabla con los resultados
+            dataEVENTOSv.DataSource = eventosFiltrados;
+        }
+
+
+
+
+
+        private void dataEVENTOSv_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                try
+                {
+                    // Obtenemos la fila seleccionada
+                    DataGridViewRow fila = dataEVENTOSv.Rows[e.RowIndex];
+
+                    // Asignamos por posición de columna (0, 1, 2...)
+                    idSeleccionado = fila.Cells[0].Value?.ToString();
+                    txtnombrevento.Text = fila.Cells[1].Value?.ToString();
+                    combotipoe.Text = fila.Cells[2].Value?.ToString();
+                    // La fecha suele ser la columna 3
+                    if (fila.Cells[3].Value != null)
+                        datefechaini.Value = Convert.ToDateTime(fila.Cells[3].Value);
+
+                    txtLugar.Text = fila.Cells[5].Value?.ToString();
+                    comboestado.Text = fila.Cells[6].Value?.ToString();
+                }
+                catch
+                {
+                    // Si una columna no existe, el catch vacío evita que el programa se cierre
+                }
+            }
+        }
+
+
+        // por aca creo el metodo cargar evento para la consulta 
+
+        private void CargarEventos()
+        {
+            try
+            {
+                // 1. Limpiamos la tabla antes de cargar
+                dataEVENTOSv.DataSource = null;
+                dataEVENTOSv.Columns.Clear();
+
+                // 2. Traemos los datos de Mongo
+                var lista = conexion.Eventos().Find(_ => true).ToList();
+
+                // 3. Asignamos la lista
+                dataEVENTOSv.DataSource = lista;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
     }
+
 }

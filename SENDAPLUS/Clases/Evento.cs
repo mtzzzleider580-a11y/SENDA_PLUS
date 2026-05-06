@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SENDAPLUS
 {
-    
+    [BsonIgnoreExtraElements]
     public class Evento
     {// Id de MongoDB (ObjectId)
         [BsonId]
@@ -33,5 +33,7 @@ namespace SENDAPLUS
         [BsonElement("estado")]
         public string Estado { get; set; }
     }
-    
+
 }
+
+

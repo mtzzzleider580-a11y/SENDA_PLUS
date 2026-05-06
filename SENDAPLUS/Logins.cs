@@ -95,7 +95,7 @@ namespace SENDAPLUS
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
-            var result = MessageBox.Show(
+            DialogResult result = MessageBox.Show(
                 "¿Desea salir de SENDAPLUS?",
                 "Salir",
                 MessageBoxButtons.YesNo,
@@ -104,6 +104,7 @@ namespace SENDAPLUS
 
             if (result == DialogResult.Yes)
             {
+                this.Close();
                 Application.Exit();
             }
         }
