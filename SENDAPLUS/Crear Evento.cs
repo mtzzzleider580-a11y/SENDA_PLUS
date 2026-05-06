@@ -30,6 +30,13 @@ namespace SENDAPLUS
 
         private void InicializarRuntime()
         {
+            datefechaini.MinDate = DateTime.Now;
+            datefechafin.MinDate = DateTime.Now;
+            datefechaini.Value = DateTime.Now.AddHours(1);
+            datefechafin.Value = DateTime.Now.AddHours(2);
+
+
+
             if (LicenseManager.UsageMode == LicenseUsageMode.Designtime)
             {
                 return;
