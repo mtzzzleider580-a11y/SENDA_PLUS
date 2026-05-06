@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.ComponentModel;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using MongoDB.Driver;
@@ -21,10 +22,23 @@ namespace SENDAPLUS
         private IMongoCollection<Invitacion> colInvitaciones;
         private IMongoCollection<Evento> colEventos;
 
-        public FormInvitado(Usuarios usuario)
+        public FormInvitado()
         {
             InitializeComponent();
+        }
+
+        public FormInvitado(Usuarios usuario) : this()
+        {
             usuarioActual = usuario;
+            InicializarRuntime();
+        }
+
+        private void InicializarRuntime()
+        {
+            if (LicenseManager.UsageMode == LicenseUsageMode.Designtime)
+            {
+                return;
+            }
 
             // MaterialSkin aqui se configura el tema y los colores de el formulario
             var materialSkinManager = MaterialSkinManager.Instance;

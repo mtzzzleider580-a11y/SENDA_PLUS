@@ -2,6 +2,7 @@
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 
@@ -9,13 +10,26 @@ namespace SENDAPLUS
 {
     public partial class Lider : MaterialForm
     {
-        private readonly Usuarios usuarioActual;
-        private readonly IMongoCollection<BsonDocument> _eventosCollection;
+        private Usuarios usuarioActual;
+        private IMongoCollection<BsonDocument> _eventosCollection;
 
-        public Lider(Usuarios usuario)
+        public Lider()
         {
             InitializeComponent();
+        }
+
+        public Lider(Usuarios usuario) : this()
+        {
             usuarioActual = usuario ?? throw new ArgumentNullException(nameof(usuario));
+            InicializarRuntime();
+        }
+
+        private void InicializarRuntime()
+        {
+            if (LicenseManager.UsageMode == LicenseUsageMode.Designtime)
+            {
+                return;
+            }
 
             // Mostrar nombre del líder en el label
             label1.Text = usuarioActual.Nombre;

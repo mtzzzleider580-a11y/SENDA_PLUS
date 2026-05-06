@@ -3,6 +3,7 @@ using MaterialSkin.Controls;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,12 +15,27 @@ namespace SENDAPLUS
     public partial class Crear_Evento : MaterialForm
     {
         private Usuarios usuarioActual;
-        ConexionMongo.Conectar conexion = new ConexionMongo.Conectar();
+        private ConexionMongo.Conectar conexion;
 
-        public Crear_Evento(Usuarios usuario)
+        public Crear_Evento()
         {
-            InitializeComponent(); // <--- SIN ESTA LÍNEA LA VENTANA SALE VACÍA
+            InitializeComponent();
+        }
+
+        public Crear_Evento(Usuarios usuario) : this()
+        {
             this.usuarioActual = usuario;
+            InicializarRuntime();
+        }
+
+        private void InicializarRuntime()
+        {
+            if (LicenseManager.UsageMode == LicenseUsageMode.Designtime)
+            {
+                return;
+            }
+
+            conexion = new ConexionMongo.Conectar();
             CargarEventos(); // Para que la tabla se llene apenas abra
 
             // MaterialSkin aqui se configura el tema y los colores de el formulario
