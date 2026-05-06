@@ -146,11 +146,17 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="ZstdSharp, Version=0.8.7.0, Culture=neutral, PublicKeyToken=8d151af33a4ad5cf, processorArchitecture=MSIL">
-      <HintPath>..\packages\ZstdSharp.Port.0.8.7\lib\net462\ZstdSharp.dll</HintPath>
+    <Reference Include="ZstdSharp, Version=0.8.8.0, Culture=neutral, PublicKeyToken=8d151af33a4ad5cf, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZstdSharp.Port.0.8.8\lib\net462\ZstdSharp.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Agrgar invitados.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Agrgar invitados.Designer.cs">
+      <DependentUpon>Agrgar invitados.cs</DependentUpon>
+    </Compile>
     <Compile Include="Clase_conexion\ConexionMongo.cs" />
     <Compile Include="Clases\Evento.cs" />
     <Compile Include="Crear Evento.cs">
@@ -187,6 +193,9 @@
     <Compile Include="Clases\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Clases\Usuarios.cs" />
+    <EmbeddedResource Include="Agrgar invitados.resx">
+      <DependentUpon>Agrgar invitados.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Crear Evento.resx">
       <DependentUpon>Crear Evento.cs</DependentUpon>
     </EmbeddedResource>
