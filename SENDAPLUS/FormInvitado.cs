@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.ComponentModel;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using MongoDB.Driver;
@@ -17,109 +16,20 @@ namespace SENDAPLUS
 {
     public partial class FormInvitado : MaterialForm
     {
-        private Usuarios usuarioActual;
-        // Colecciones de Mongo
-        private IMongoCollection<Invitacion> colInvitaciones;
-        private IMongoCollection<Evento> colEventos;
 
-        public FormInvitado()
+        private Usuarios usuarioActual;
+        private ConexionMongo.Conectar conexion;
+
+        public FormInvitado(Usuarios usuario)
         {
             InitializeComponent();
+            this.usuarioActual = usuario;
+            label1.Text = "Bienvenido, " + usuarioActual.Nombre; // Personalizamos el saludo
         }
 
-        public FormInvitado(Usuarios usuario) : this()
-        {
-            usuarioActual = usuario;
-            InicializarRuntime();
-        }
 
-        private void InicializarRuntime()
-        {
-            if (LicenseManager.UsageMode == LicenseUsageMode.Designtime)
-            {
-                return;
-            }
-
-            // MaterialSkin aqui se configura el tema y los colores de el formulario
-            var materialSkinManager = MaterialSkinManager.Instance;
-            materialSkinManager.AddFormToManage(this);
-
-            materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
-
-            materialSkinManager.ColorScheme = new ColorScheme(
-                Primary.Green600,
-                Primary.Green700,
-                Primary.Green200,
-                Accent.LightGreen200,
-                TextShade.WHITE
-            );
-
-
-            // Conexión Mongo
-            var conexion = new ConexionMongo.Conectar();
-
-            colInvitaciones = conexion.Invitacion();
-            colEventos = conexion.Eventos();
-        }
-
-        private async Task CargarEventosAsignados()
-        {
-            try
-            {
-                // 1. Buscar invitaciones del usuario
-                var invitaciones = await colInvitaciones
-                    .Find(i => i.IdInvitado == usuarioActual.Id)
-                    .ToListAsync();
-
-                if (invitaciones.Count == 0)
-                {
-                    MessageBox.Show("No tienes eventos asignados");
-                    dataGridView1.DataSource = null;
-                    return;
-                }
-
-                // 2. Obtener IDs de eventos
-                var idsEventos = invitaciones.Select(i => i.IdEvento).ToList();
-
-                // 3. Buscar eventos en la colección
-                var eventos = await colEventos
-                    .Find(e => idsEventos.Contains(e.Id))
-                    .ToListAsync();
-
-                // 4. Mostrar en el DataGridView
-                dataGridView1.DataSource = eventos;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex.Message);
-            }
-        }
-
-        private void CargarMeses()
-        {
-            cmbMes.Items.Add("Enero");
-            cmbMes.Items.Add("Febrero");
-            cmbMes.Items.Add("Marzo");
-            cmbMes.Items.Add("Abril");
-            cmbMes.Items.Add("Mayo");
-            cmbMes.Items.Add("Junio");
-            cmbMes.Items.Add("Julio");
-            cmbMes.Items.Add("Agosto");
-            cmbMes.Items.Add("Septiembre");
-            cmbMes.Items.Add("Octubre");
-            cmbMes.Items.Add("Noviembre");
-            cmbMes.Items.Add("Diciembre");
-        }
-
-        private async void FormInvitado_Load(object sender, EventArgs e)
-        { // Mostrar nombre del usuario
-            label1.Text = "Bienvenido " + usuarioActual.Nombre;
-
-            // Cargar eventos automáticamente
-            await CargarEventosAsignados();
-
-            // Cargar meses en el ComboBox
-            CargarMeses();
+        private  void FormInvitado_Load(object sender, EventArgs e)
+        { 
 
         }
        
@@ -129,77 +39,44 @@ namespace SENDAPLUS
 
         }
 
-        private async void btnConsultar_Click(object sender, EventArgs e)
-        {
-            await CargarEventosAsignados();
-        }
-
-        private void btnDetalles_Click(object sender, EventArgs e)
-        {
-            if (dataGridView1.CurrentRow == null)
-            {
-                MessageBox.Show("Seleccione un evento");
-                return;
-            }
-
-            var evento = (Evento)dataGridView1.CurrentRow.DataBoundItem;
-
-            MessageBox.Show(
-                "DETALLE DEL EVENTO\n\n" +
-                "Nombre: " + evento.NombreEvento + "\n" +
-                "Tipo: " + evento.TipoEvento + "\n" +
-                "Fecha: " + evento.Fecha.ToShortDateString() + "\n" +
-                "Hora Inicio: " + evento.Hora + "\n" +
-                "Lugar: " + evento.Lugar + "\n" +
-                "Estado: " + evento.Estado
-            );
-        }
-
-        private async void btnfiltrar_Click(object sender, EventArgs e)
+        private  void btnConsultar_Click(object sender, EventArgs e)
         {
             try
             {
+                dataGridView1.AutoGenerateColumns = true; // <--- AGREGA ESTA LÍNEA
 
+                // El resto de tu código de búsqueda...
+                var misInvitaciones = conexion.Invitacion()
+                    .Find(x => x.IdInvitado == usuarioActual.Id).ToList();
 
-                if (cmbMes.SelectedIndex == -1)
-                {
-                    MessageBox.Show("Seleccione un mes");
-                    return;
-                }
-
-                int mesSeleccionado = cmbMes.SelectedIndex + 1;
-
-                // 🔹 Buscar invitaciones
-                var invitaciones = await colInvitaciones
-                    .Find(i => i.IdInvitado == usuarioActual.Id)
-                    .ToListAsync();
-
-                var idsEventos = invitaciones
-                    .Select(i => i.IdEvento)
-                    .ToList();
-
-                // 🔹 Buscar eventos y filtrar por mes
-                var eventos = await colEventos
-                    .Find(ev => idsEventos.Contains(ev.Id))
-                    .ToListAsync();
-
-                var eventosFiltrados = eventos
-                    .Where(ev => ev.Fecha.Month == mesSeleccionado)
-                    .ToList();
-
-                dataGridView1.DataSource = eventosFiltrados;
-
-                if (eventosFiltrados.Count == 0)
-                {
-                    MessageBox.Show("No hay eventos en ese mes");
-                }
+                // ... (el resto que ya tienes funciona bien)
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al filtrar: " + ex.Message);
+                MessageBox.Show("Error: " + ex.Message);
             }
-        
-            
+        }
+
+        // no se usa 
+        private void btnDetalles_Click(object sender, EventArgs e)
+        {
+        }
+
+        private  void btnfiltrar_Click(object sender, EventArgs e)
+        {
+
+            if (cmbMes.SelectedIndex == -1) return;
+
+            int mesBuscado = cmbMes.SelectedIndex + 1; // Enero es 0, por eso +1
+
+            // Obtenemos lo que ya está en la tabla y lo filtramos
+            var listaActual = (List<Evento>)dataGridView1.DataSource;
+            if (listaActual != null)
+            {
+                var filtrados = listaActual.Where(x => x.Fecha.Month == mesBuscado).ToList();
+                dataGridView1.DataSource = filtrados;
+            }
+
         }
 
         private void btnCerrarsesión_Click(object sender, EventArgs e)
@@ -213,6 +90,11 @@ namespace SENDAPLUS
 
                 this.Close();
             }
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

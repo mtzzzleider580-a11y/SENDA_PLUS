@@ -78,5 +78,13 @@ namespace SENDAPLUS
         {
 
         }
+
+        private void agregarbtn_Click(object sender, EventArgs e)
+        {
+            // Pasamos 'usuarioActual' que es el que ya tienes en este formulario
+            Agrgar_invitados agr = new Agrgar_invitados(usuarioActual);
+            agr.Show();
+            this.Hide(); // Usamos Hide para que el Menú Líder no se cierre del todo 
+        }
     }
 }

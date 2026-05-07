@@ -12,177 +12,149 @@ namespace SENDAPLUS
 {
     public partial class Agrgar_invitados : MaterialForm
     {
-        private readonly IMongoCollection<Usuarios> _usuariosCollection;
-        private readonly IMongoCollection<BsonDocument> _invitacionCollection;
-        private readonly IMongoCollection<BsonDocument> _eventoCollection;
+        private Usuarios usuarioActual;
+        // Conexión directa
+        private ConexionMongo.Conectar conexion = new ConexionMongo.Conectar();
 
-        private ObjectId _eventoId = ObjectId.Empty;
-        private DateTime _fechaEvento;
-        private string _horaEvento;
+        // Variables para guardar lo que selecciones
+        string idAprendiz = "";
+        string idEvento = "";
 
-        // Constructor sin parámetros para diseñador
-        public Agrgar_invitados()
+
+        public Agrgar_invitados(Usuarios usuario)
         {
             InitializeComponent();
-
-            var materialSkinManager = MaterialSkinManager.Instance;
-            materialSkinManager.AddFormToManage(this);
-            materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
-            materialSkinManager.ColorScheme = new ColorScheme(
-                Primary.Green600,
-                Primary.Green700,
-                Primary.Green200,
-                Accent.LightGreen200,
-                TextShade.WHITE
-            );
-
-            var conexion = new ConexionMongo.Conectar();
-            _usuariosCollection = conexion.Usuarios();
-
-            var client = new MongoClient("mongodb://localhost:27017");
-            var db = client.GetDatabase("SENDAPLUS");
-            _invitacionCollection = db.GetCollection<BsonDocument>("Invitacion");
-            _eventoCollection = db.GetCollection<BsonDocument>("Evento");
-
-            Load += Agrgar_invitados_Load;
+            this.usuarioActual = usuario; // Guardamos el usuario que mandó el Líder
         }
 
-        // Constructor real usado en ejecución
-        public Agrgar_invitados(ObjectId eventoId, DateTime fechaEvento, string horaEvento) : this()
+        private void Agrgar_invitados_Load(object sender, EventArgs e)
         {
-            _eventoId = eventoId;
-            _fechaEvento = fechaEvento;
-            _horaEvento = horaEvento;
-            this.Text = $"AGREGAR INVITADOS - Evento {_eventoId}";
+            CargarTablas();
+
         }
 
-        private async void Agrgar_invitados_Load(object sender, EventArgs e)
+        private void CargarTablas()
         {
-            await CargarInvitadosAsync();
-        }
-
-        private async Task CargarInvitadosAsync()
-        {
-            dgvInvitados.Rows.Clear();
-
-            var lista = await _usuariosCollection.Find(Builders<Usuarios>.Filter.Empty).ToListAsync();
-            foreach (var u in lista)
+            try
             {
-                var id = u.GetType().GetProperty("Id")?.GetValue(u)?.ToString() ?? "";
-                dgvInvitados.Rows.Add(id, u.Nombre, u.Correo, false);
+                // 1. Forzar que las tablas creen sus propias columnas
+                dgvAprendices.AutoGenerateColumns = true;
+                dgvEventos.AutoGenerateColumns = true;
+
+                // 2. Traer los datos de MongoDB
+                var aprendices = conexion.Usuarios().Find(_ => true).ToList();
+                var eventos = conexion.Eventos().Find(_ => true).ToList();
+
+                // 3. Asignar los datos
+                dgvAprendices.DataSource = aprendices;
+                dgvEventos.DataSource = eventos;
+
+                // 4. Agregar el cuadrito de Selección (Solo si no existe)
+                if (!dgvAprendices.Columns.Contains("Seleccionar"))
+                {
+                    DataGridViewCheckBoxColumn check = new DataGridViewCheckBoxColumn();
+                    check.Name = "Seleccionar";
+                    check.HeaderText = "Invitar";
+                    dgvAprendices.Columns.Insert(0, check);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error de conexión: " + ex.Message);
             }
         }
 
         private void btnAgregarSeleccionado_Click(object sender, EventArgs e)
         {
-            foreach (DataGridViewRow row in dgvInvitados.Rows)
-            {
-                bool seleccionado = row.Cells["Seleccionar"].Value != null && (bool)row.Cells["Seleccionar"].Value;
-                if (!seleccionado) continue;
 
-                string id = row.Cells["Id"].Value?.ToString() ?? "";
-                string nombre = row.Cells["Nombre"].Value?.ToString() ?? "";
-                string correo = row.Cells["Correo"].Value?.ToString() ?? "";
-
-                bool existe = dgvSeleccionados.Rows.Cast<DataGridViewRow>()
-                    .Any(r => (r.Cells["dataGridViewTextBoxColumn2"].Value?.ToString() ?? "") == nombre &&
-                              (r.Cells["dataGridViewTextBoxColumn3"].Value?.ToString() ?? "") == correo);
-
-                if (!existe)
-                {
-                    dgvSeleccionados.Rows.Add(id, nombre, correo);
-                }
-            }
         }
 
         private void btnQuitarInvitacion_Click(object sender, EventArgs e)
         {
-            foreach (DataGridViewRow row in dgvSeleccionados.SelectedRows)
-            {
-                dgvSeleccionados.Rows.Remove(row);
-            }
+
         }
 
-        private async void btnGuardar_Click(object sender, EventArgs e)
+        private void btnGuardar_Click(object sender, EventArgs e)
         {
-            if (_eventoId == ObjectId.Empty)
+            if (string.IsNullOrEmpty(idAprendiz) || string.IsNullOrEmpty(idEvento))
             {
-                MessageBox.Show("Evento inválido. Asegúrate de crear o seleccionar un evento primero.");
+                MessageBox.Show("Por favor, selecciona un Aprendiz y un Evento.");
                 return;
             }
 
-            if (dgvSeleccionados.Rows.Count == 0)
+            try
             {
-                MessageBox.Show("No hay invitados seleccionados.");
-                return;
-            }
-
-            int guardados = 0;
-
-            foreach (DataGridViewRow row in dgvSeleccionados.Rows)
-            {
-                string invitadoIdStr = row.Cells[0].Value?.ToString() ?? "";
-                string invitadoNombre = row.Cells[1].Value?.ToString() ?? "";
-                string invitadoCorreo = row.Cells[2].Value?.ToString() ?? "";
-
-                if (!ObjectId.TryParse(invitadoIdStr, out ObjectId invitadoId))
+                var nuevaInv = new Invitacion
                 {
-                    var u = await _usuariosCollection.Find(Builders<Usuarios>.Filter.Eq("correo", invitadoCorreo)).FirstOrDefaultAsync();
-                    if (u == null)
-                    {
-                        MessageBox.Show($"No se encontró el usuario {invitadoNombre} ({invitadoCorreo}).");
-                        continue;
-                    }
-                    var prop = u.GetType().GetProperty("Id")?.GetValue(u);
-                    invitadoId = prop is ObjectId oid ? oid : (prop != null ? ObjectId.Parse(prop.ToString()) : ObjectId.Empty);
-                }
-
-                // Buscar invitaciones previas del invitado y comparar fecha/hora con el evento actual
-                var filtroInvitado = Builders<BsonDocument>.Filter.Eq("idInvitado", invitadoId);
-                var invitaciones = await _invitacionCollection.Find(filtroInvitado).ToListAsync();
-
-                bool conflicto = false;
-                foreach (var inv in invitaciones)
-                {
-                    if (!inv.Contains("idEvento")) continue;
-                    var idEv = inv["idEvento"].AsObjectId;
-                    var ev = await _eventoCollection.Find(Builders<BsonDocument>.Filter.Eq("_id", idEv)).FirstOrDefaultAsync();
-                    if (ev == null) continue;
-                    DateTime fechaEv = ev.Contains("fecha") ? ev["fecha"].ToUniversalTime().ToLocalTime().Date : DateTime.MinValue;
-                    string horaEv = ev.Contains("hora") ? ev["hora"].AsString : "";
-
-                    if (fechaEv == _fechaEvento.Date && horaEv == _horaEvento)
-                    {
-                        conflicto = true;
-                        break;
-                    }
-                }
-
-                if (conflicto)
-                {
-                    MessageBox.Show($"El invitado {invitadoNombre} ({invitadoCorreo}) ya tiene una invitación en la misma fecha y hora.");
-                    continue;
-                }
-
-                var docInv = new BsonDocument
-                {
-                    { "_id", ObjectId.GenerateNewId() },
-                    { "idEvento", _eventoId },
-                    { "idInvitado", invitadoId }
+                    IdEvento = idEvento,
+                    IdInvitado = idAprendiz
                 };
 
-                await _invitacionCollection.InsertOneAsync(docInv);
-                guardados++;
-            }
+                conexion.Invitacion().InsertOne(nuevaInv);
+                MessageBox.Show("¡Invitación guardada exitosamente!");
 
-            MessageBox.Show($"Invitaciones guardadas: {guardados}.");
-            this.Close();
+                // Limpiamos selección
+                idAprendiz = ""; idEvento = "";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
             // Este formulario normalmente se abre con ShowDialog(); Close() devuelve el control al llamador.
             this.Close();
-        }   
+        }
+
+        private void Agrgar_invitados_Load_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgvSeleccionados_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dgvInvitados_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+
+        private void dgveven_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dgvSeleccionados_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dgvAprendices_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                // Capturamos el ID de la primera celda (Id de Mongo)
+                idAprendiz = dgvAprendices.Rows[e.RowIndex].Cells["Id"].Value?.ToString();
+            }
+        }
+
+        private void dgvEventos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                idEvento = dgvEventos.Rows[e.RowIndex].Cells["Id"].Value?.ToString();
+            }
+        }
+
+        private void Cargarbtn_Click(object sender, EventArgs e)
+        {
+            CargarTablas();
+        }
     }
 }
+     
