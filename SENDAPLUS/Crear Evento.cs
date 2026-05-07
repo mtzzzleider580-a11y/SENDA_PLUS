@@ -30,10 +30,10 @@ namespace SENDAPLUS
 
         private void InicializarRuntime()
         {
-            datefechaini.MinDate = DateTime.Now;
-            datefechafin.MinDate = DateTime.Now;
+            datefechaini.MinDate = DateTime.Today;
+            datefechafin.MinDate = DateTime.Today;
             datefechaini.Value = DateTime.Now.AddHours(1);
-            datefechafin.Value = DateTime.Now.AddHours(2);
+            datefechafin.Value = DateTime.Now.AddHours(2); 
 
 
 
@@ -74,12 +74,20 @@ namespace SENDAPLUS
                 return; // Se detiene aquí si no hay selección
             }
 
-            // 2. SEGUNDO: Verificar si dejó campos vacíos después de editar
+            // 2. : Verificar si dejó campos vacíos después de editar
             if (string.IsNullOrWhiteSpace(txtnombrevento.Text) || string.IsNullOrWhiteSpace(txtLugar.Text))
             {
                 MessageBox.Show("No puedes dejar datos vacíos .");
                 return;
             }
+
+            // 3. para validar la fecha de fin que no puede ser menor a la de inicio
+            if (datefechafin.Value < datefechaini.Value)
+            {
+                MessageBox.Show("Error: La fecha de fin no puede ser anterior a la de inicio.");
+                return; // Esto detiene el proceso y no guarda nada
+            }
+
 
             // 3. Si todo está bien, procede a guardar los cambios en MongoDB
             try
@@ -113,9 +121,9 @@ namespace SENDAPLUS
      
         private void btnVolver_Click(object sender, EventArgs e)
         {
-            FormLogin login = new FormLogin();
-            login.Show(); // Muestra la ventana anterior
-            this.Hide();
+            Lider formularioLider = new Lider(usuarioActual);
+            formularioLider.Show(); // 3. Cerramos esta ventana de Crear Evento
+            this.Close();
         }
 
 
@@ -137,7 +145,15 @@ namespace SENDAPLUS
                 return; // Este 'return' es el que evita que se cree el evento
             }
 
-            // 2. Si pasó la validación, entonces sí creamos el objeto
+            // 2. para validar la fecha de fin que no puede ser menor a la de inicio
+            if (datefechafin.Value < datefechaini.Value)
+            {
+                MessageBox.Show("Error: La fecha de fin no puede ser anterior a la de inicio.");
+                return; 
+            }
+
+
+            // 3. Si pasó la validación, entonces sí creamos el objeto
             var nuevoEvento = new Evento
             {
                 NombreEvento = txtnombrevento.Text,
@@ -148,7 +164,7 @@ namespace SENDAPLUS
                 Estado = comboestado.Text
             };
 
-            // 3. Guardar en MongoDB
+            // 4. Guardar en MongoDB
             try
             {
                 conexion.Eventos().InsertOne(nuevoEvento);
@@ -156,7 +172,7 @@ namespace SENDAPLUS
 
                 CargarEventos(); // Refrescar la tabla
 
-                // 4. Limpiar los cuadros para un nuevo registro
+                // 5. Limpiar los cuadros para un nuevo registro
                 txtnombrevento.Clear();
                 txtLugar.Clear();
             }
@@ -270,11 +286,20 @@ namespace SENDAPLUS
 
                 // 3. Asignamos la lista
                 dataEVENTOSv.DataSource = lista;
+
+                // 4. aplicamos el color negro de los datos de las celdas
+                dataEVENTOSv.DefaultCellStyle.ForeColor = Color.Black;
+                dataEVENTOSv.DefaultCellStyle.SelectionForeColor = Color.Black;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
+        }
+
+        private void Crear_Evento_Load(object sender, EventArgs e)
+        {
+
         }
     }
 

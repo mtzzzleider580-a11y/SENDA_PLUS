@@ -39,9 +39,10 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Algerian", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
-            this.label1.Location = new System.Drawing.Point(326, 72);
+            this.label1.Location = new System.Drawing.Point(489, 111);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(107, 26);
+            this.label1.Size = new System.Drawing.Size(157, 40);
             this.label1.TabIndex = 0;
             this.label1.Text = "label1";
             // 
@@ -52,8 +53,8 @@
             this.btnCrearEvento.Depth = 0;
             this.btnCrearEvento.HighEmphasis = true;
             this.btnCrearEvento.Icon = null;
-            this.btnCrearEvento.Location = new System.Drawing.Point(317, 121);
-            this.btnCrearEvento.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnCrearEvento.Location = new System.Drawing.Point(461, 188);
+            this.btnCrearEvento.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnCrearEvento.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnCrearEvento.Name = "btnCrearEvento";
             this.btnCrearEvento.NoAccentTextColor = System.Drawing.Color.Empty;
@@ -72,8 +73,8 @@
             this.btnConsultarEvento.Depth = 0;
             this.btnConsultarEvento.HighEmphasis = true;
             this.btnConsultarEvento.Icon = null;
-            this.btnConsultarEvento.Location = new System.Drawing.Point(296, 182);
-            this.btnConsultarEvento.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnConsultarEvento.Location = new System.Drawing.Point(444, 280);
+            this.btnConsultarEvento.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnConsultarEvento.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnConsultarEvento.Name = "btnConsultarEvento";
             this.btnConsultarEvento.NoAccentTextColor = System.Drawing.Color.Empty;
@@ -92,8 +93,8 @@
             this.btnActualizarEventos.Depth = 0;
             this.btnActualizarEventos.HighEmphasis = true;
             this.btnActualizarEventos.Icon = null;
-            this.btnActualizarEventos.Location = new System.Drawing.Point(296, 255);
-            this.btnActualizarEventos.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnActualizarEventos.Location = new System.Drawing.Point(444, 392);
+            this.btnActualizarEventos.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnActualizarEventos.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnActualizarEventos.Name = "btnActualizarEventos";
             this.btnActualizarEventos.NoAccentTextColor = System.Drawing.Color.Empty;
@@ -112,8 +113,8 @@
             this.btnCerrarSesión.Depth = 0;
             this.btnCerrarSesión.HighEmphasis = true;
             this.btnCerrarSesión.Icon = null;
-            this.btnCerrarSesión.Location = new System.Drawing.Point(317, 338);
-            this.btnCerrarSesión.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnCerrarSesión.Location = new System.Drawing.Point(476, 520);
+            this.btnCerrarSesión.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnCerrarSesión.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnCerrarSesión.Name = "btnCerrarSesión";
             this.btnCerrarSesión.NoAccentTextColor = System.Drawing.Color.Empty;
@@ -127,15 +128,17 @@
             // 
             // Lider
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1200, 692);
             this.Controls.Add(this.btnCerrarSesión);
             this.Controls.Add(this.btnActualizarEventos);
             this.Controls.Add(this.btnConsultarEvento);
             this.Controls.Add(this.btnCrearEvento);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Lider";
+            this.Padding = new System.Windows.Forms.Padding(4, 98, 4, 5);
             this.Text = "Lider";
             this.Load += new System.EventHandler(this.Lider_Load);
             this.ResumeLayout(false);
